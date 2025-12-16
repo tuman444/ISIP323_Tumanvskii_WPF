@@ -17,7 +17,7 @@
 
             <StackPanel Orientation="Horizontal" Margin="0, 15, 0, 15">
                 <Label Content="Процент первоначального взноса"></Label>
-                <TextBox x:Name="Procent" PreviewTextInput="TextBox_OnPreviewTextInput" Text="30" Margin="20, 0, 0, 0"></TextBox>
+                <TextBox x:Name="Procent" PreviewTextInput="TextBox_OnPreviewTextInput" Text="30" Margin="20, 0, 0, 0" TextChanged="Procent_TextChanged"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Label Content="Срок кредита"/>

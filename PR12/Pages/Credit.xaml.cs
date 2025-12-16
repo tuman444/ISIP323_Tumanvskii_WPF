@@ -24,5 +24,39 @@ namespace PR12.Pages
         {
             InitializeComponent();
         }
+        double finalValue = 12;
+        private void B_click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new FinalPage());
+            Info.MVobj.Add();
+        }
+
+        private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (Shtuk != null)
+            {
+                Slider slider = (Slider)sender;
+                finalValue = slider.Value;
+
+                Shtuk.Text = $"{finalValue} месяцев";
+            }
+        }
+
+        private void TextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.Text[0]);
+
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(Procent.Text) > 100)
+            {
+                MessageBox.Show("Введен не корректный процент");
+                return;
+            }
+            PriceCore.n = (int)Sl.Value;
+            PriceCore.procent = int.Parse(Procent.Text);
+            PriceCore.credit(TBVznos, Credit_sum, Month);
+        }
     }
 }

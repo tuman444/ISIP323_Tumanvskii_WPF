@@ -29,7 +29,7 @@ namespace PR12.Pages
         {
             MainWindow MVobj = (MainWindow)Window.GetWindow(this);
             Info.MVobj = MVobj;
-            Info.MVobj.AddGoida();
+            Info.MVobj.Add();
             Frame MF = Info.MVobj.MainFrame;
             PriceCore.price();
             if (MF.CanGoForward)

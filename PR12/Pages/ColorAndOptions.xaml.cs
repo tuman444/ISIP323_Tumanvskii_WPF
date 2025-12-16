@@ -24,5 +24,25 @@ namespace PR12.Pages
         {
             InitializeComponent();
         }
+
+        private void B_click(object sender, RoutedEventArgs e)
+        {
+            PriceCore.lst = new List<CheckBox> { cb1, cb2, cb3, cb4, cb5 };
+
+            Info.MVobj.Add();
+            Frame MF = Info.MVobj.MainFrame;
+            Info.options = PriceCore.options();
+            if (MF.CanGoForward)
+            {
+                MF.GoForward();
+                return;
+            }
+            NavigationService.Navigate(new Third());
+        }
+        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            Info.color = rb.Content.ToString();
+        }
     }
 }
