@@ -37,7 +37,7 @@ namespace PR12.Pages
                 MF.GoForward();
                 return;
             }
-            NavigationService.Navigate(new Third());
+            NavigationService.Navigate(new Prosmotr());
         }
         private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
         {

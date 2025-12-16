@@ -18,10 +18,10 @@
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Row="0">
             <Label FontSize="20" Content="Проверьте выбранные опции и конфигурацию" Margin="0, 20" />
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical" Grid.Row="1" >
             <TextBlock Name="Opt"  Text="Опции" Margin="30,15"></TextBlock>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center">
+        <StackPanel Orientation="Vertical" Grid.Row="2" >
             <TextBlock Name="konf"  Text="Конфигурация" Margin="30,15"></TextBlock>
         </StackPanel>
 

@@ -24,5 +24,24 @@ namespace PR12.Pages
         {
             InitializeComponent();
         }
+        private void B_click(object sender, RoutedEventArgs e)
+        {
+
+            Info.MVobj.Add();
+            Frame MF = Info.MVobj.MainFrame;
+
+            if (MF.CanGoForward)
+            {
+                MF.GoForward();
+                return;
+            }
+            NavigationService.Navigate(new Credit());
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            konf.Text = $"{Info.model}\n{Info.engine}\n{Info.color}";
+            Opt.Text = $"{Info.options}";
+        }
     }
 }

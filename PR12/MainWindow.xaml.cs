@@ -24,5 +24,45 @@ namespace PR12
         {
             InitializeComponent();
         }
+
+        private void Return_click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoBack)
+            {
+                MainFrame.GoBack();
+                Reduce();
+            }
+        }
+
+        private void OnNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (Progress != null)
+            {
+                if (Progress.Value == 5)
+                {
+                    var result = MessageBox.Show("Есть несохранённые изменения. Покинуть страницу?", "Подтверждение",
+                      MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.No)
+                    {
+                        Add();
+                        e.Cancel = true;
+                    }
+                }
+            }
+        }
+
+        public void Add()
+        {
+            Progress.Value += 1;
+        }
+        public void Reduce()
+        {
+            Progress.Value -= 1;
+        }
+
+        private void MainFrame_NavigationStopped(object sender, NavigationEventArgs e)
+        {
+            Add();
+        }
     }
 }

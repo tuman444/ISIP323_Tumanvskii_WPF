@@ -24,5 +24,32 @@ namespace PR12.Pages
         {
             InitializeComponent();
         }
+        private void TextBox_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !char.IsDigit(e.Text[0]);
+
+        }
+        private void B_click(object sender, RoutedEventArgs e)
+        {
+
+            Info.show();
+            Application.Current.Shutdown();
+        }
+
+        private void Name_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox TxtBox = (TextBox)sender;
+            if (Info.all_complited())
+            {
+                if (Name.Text.Length > 0 && Phone.Text.Length > 0 && email.Text.Length > 0)
+                {
+                    Info.email = email.Text;
+                    Info.phone = Phone.Text;
+                    Info.fio = Name.Text;
+                    Btn.IsEnabled = true;
+                }
+                else { Btn.IsEnabled = false; }
+            }
+        }
     }
 }

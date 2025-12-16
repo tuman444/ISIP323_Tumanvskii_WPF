@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR12"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="550" Width="800">
     <Grid Margin="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
+            <RowDefinition Height="400"/>
             <RowDefinition Height="70"/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
@@ -27,11 +27,11 @@
             <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" >
                 <Button Content="Вернуться назад" Click="Return_click" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,0" Height="40" Width="200"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Center"    VerticalAlignment="Center">
-                <TextBlock x:Name="Itog" Grid.Column="1" FontSize="18" Text="Стоимость:" HorizontalAlignment="Center" VerticalAlignment="Center" Height="24" Width="92" Margin="100,0" />
+            <StackPanel Grid.Column="1">
+                <TextBlock FontSize="18" Text="Стоимость:" Grid.Row="1" Margin="25" x:Name="Itog"/>
             </StackPanel>
         </Grid>
 
-        <ProgressBar x:Name="GoidaProgress" Grid.Row="2" Height="30" Minimum="1" Maximum="6" Value="1" ></ProgressBar>
+        <ProgressBar x:Name="Progress" Grid.Row="2" Height="30" Minimum="1" Maximum="6" Value="1" ></ProgressBar>
     </Grid>
 </Window>

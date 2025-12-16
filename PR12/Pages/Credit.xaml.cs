@@ -27,8 +27,11 @@ namespace PR12.Pages
         double finalValue = 12;
         private void B_click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new FinalPage());
+
+
+            NavigationService.Navigate(new Final());
             Info.MVobj.Add();
+
         }
 
         private void Slider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -47,6 +50,7 @@ namespace PR12.Pages
             e.Handled = !char.IsDigit(e.Text[0]);
 
         }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (int.Parse(Procent.Text) > 100)
@@ -58,5 +62,6 @@ namespace PR12.Pages
             PriceCore.procent = int.Parse(Procent.Text);
             PriceCore.credit(TBVznos, Credit_sum, Month);
         }
+
     }
 }
