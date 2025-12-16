@@ -20,11 +20,11 @@
 
 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="200" Width="140">
             <Label Content="Цвет" Margin="0, 40, 0, 0"></Label>
-            <RadioButton Checked="ToggleButton_OnChecked" Content="Зеленый" GroupName="Color" Margin="0, 20, 0, 0"/>
+            <RadioButton Checked="ToggleButton_OnChecked" Content="Red" GroupName="Color" Margin="0, 20, 0, 0"/>
             <RadioButton Checked="ToggleButton_OnChecked" Content="Green" GroupName="Color" Margin="0, 10, 0, 0"/>
-            <RadioButton Checked="ToggleButton_OnChecked" Content="HEX #00FF00" GroupName="Color" Margin="0, 10, 0, 0"/>
-            <RadioButton Checked="ToggleButton_OnChecked" Content="RGB (0, 255, 0)" GroupName="Color" Margin="0, 10, 0, 0"/>
-            <RadioButton Checked="ToggleButton_OnChecked" Content="HSV (120°, 100%, 50%)" GroupName="Color" Margin="0, 10, 0, 0"/>
+            <RadioButton Checked="ToggleButton_OnChecked" Content="Blue" GroupName="Color" Margin="0, 10, 0, 0"/>
+            <RadioButton Checked="ToggleButton_OnChecked" Content="Gray" GroupName="Color" Margin="0, 10, 0, 0"/>
+            <RadioButton Checked="ToggleButton_OnChecked" Content="Black" GroupName="Color" Margin="0, 10, 0, 0"/>
         </StackPanel>
 
 <StackPanel Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" >
