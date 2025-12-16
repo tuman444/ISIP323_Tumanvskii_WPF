@@ -24,5 +24,31 @@ namespace PR12.Pages
         {
             InitializeComponent();
         }
+
+        private void B_click(object sender, RoutedEventArgs e)
+        {
+            MainWindow MVobj = (MainWindow)Window.GetWindow(this);
+            Info.MVobj = MVobj;
+            Info.MVobj.AddGoida();
+            Frame MF = Info.MVobj.MainFrame;
+            PriceCore.price();
+            if (MF.CanGoForward)
+            {
+                MF.GoForward();
+                return;
+            }
+            NavigationService.Navigate(new SecondPage());
+        }
+
+        private void ToggleButton_OnChecked(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            Info.model = rb.Content.ToString();
+        }
+        private void ToggleButton_OnChecked_2(object sender, RoutedEventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            Info.engine = rb.Content.ToString();
+        }
     }
 }
