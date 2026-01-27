@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PR13
+namespace PR13.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для OrdersPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class OrdersPage : Page
     {
-        public MainWindow()
+        public OrdersPage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Pages.ProductsPage());
         }
     }
 }
