@@ -9,6 +9,22 @@
       Title="OrdersPage">
 
     <Grid>
-        
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="400">
+            <TextBlock Text="Оформление заказа" FontSize="24" FontWeight="Bold" Margin="0,0,0,20" HorizontalAlignment="Center"/>
+
+            <Label Content="ФИО:"/>
+            <TextBox x:Name="TxtName" Margin="0,0,0,10" Height="25"/>
+
+            <Label Content="Email:"/>
+            <TextBox x:Name="TxtEmail" Margin="0,0,0,10" Height="25"/>
+
+            <Label Content="Адрес доставки:"/>
+            <TextBox x:Name="TxtAddress" Margin="0,0,0,10" Height="60" TextWrapping="Wrap"/>
+
+            <TextBlock x:Name="TotalSumTxt" FontSize="18" FontWeight="Bold" Margin="0,10"/>
+
+            <Button Content="ЗАКАЗАТЬ" Height="40" Background="#FFDDDDDD" Click="OrderBtn_Click" Margin="0,10"/>
+            <Button Content="Назад" Click="BackBtn_Click"/>
+        </StackPanel>
     </Grid>
 </Page>
