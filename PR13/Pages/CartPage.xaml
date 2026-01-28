@@ -9,6 +9,24 @@
       Title="CartPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="LViewCart" Grid.Row="0">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название" DisplayMemberBinding="{Binding Title}" Width="200"/>
+                    <GridViewColumn Header="Цена" DisplayMemberBinding="{Binding Price}" Width="100"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <TextBlock x:Name="TotalTxt" FontSize="16" VerticalAlignment="Center" Margin="0,0,20,0" FontWeight="Bold"/>
+            <Button Content="Назад к товарам" Margin="5" Click="BackBtn_Click" Width="120" Height="30"/>
+            <Button Content="Оформить заказ" Margin="5" Click="CheckoutBtn_Click" Width="120" Height="30"/>
+        </StackPanel>
     </Grid>
 </Page>

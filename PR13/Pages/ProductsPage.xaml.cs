@@ -23,6 +23,22 @@ namespace PR13.Pages
         public ProductsPage()
         {
             InitializeComponent();
+            LViewProducts.ItemsSource = Core.Context.Products.ToList();
+        }
+
+        private void AddToCartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Button btn = sender as Button;
+            var selectedProduct = btn.DataContext as Products;
+
+            Core.Cart.Add(selectedProduct);
+
+            MessageBox.Show($"Товар {selectedProduct.Title} добавлен в корзину!");
+        }
+
+        private void GoToCartBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.NavigationService.Navigate(new CartPage());
         }
     }
 }
