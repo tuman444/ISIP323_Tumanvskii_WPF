@@ -11,7 +11,7 @@
     <Grid>
         <Border Background="#6b6b6b" CornerRadius="10" Padding="20" 
                 VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"
-                BorderBrush="#c20081" BorderThickness="1">
+                BorderBrush="#c20081" BorderThickness="5">
 
             <StackPanel>
                 <TextBlock Text="Aвторизация"  FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"  Foreground="White" Margin="0,0,0,20"/>
