@@ -28,7 +28,7 @@
                 <ComboBoxItem Content="По рейтингу (высокий)"/>
             </ComboBox>
 
-            <Button Content="Личный кабинет / Вход" Margin="15,0,0,0" Padding="10,5" Background="#c20081" Foreground="White" 
+            <Button Content="Регистрация / Вход" Margin="15,0,0,0" Padding="10,5" Background="#c20081" Foreground="White" 
            FontSize="14" FontWeight="Bold" FontFamily="Arial Black" Click="BtnLogin_Click"/>
         </StackPanel>
 

@@ -24,5 +24,38 @@ namespace PR14.Pages
         {
             InitializeComponent();
         }
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(TxtLogin.Text) || string.IsNullOrWhiteSpace(PBoxPassword.Password))
+            {
+                MessageBox.Show("Пожалуйста, заполните все поля!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            var user = Core.Context.Users.FirstOrDefault(u => u.Login == TxtLogin.Text && u.Password == PBoxPassword.Password);
+
+            if(user != null )
+            {
+                Core.CurrentUser = user;
+                MessageBox.Show($"Добро пожаловать {user.FirstName}!" , "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                NavigationService.Navigate(new Pages.MainPage());
+            }
+            else
+            {
+                MessageBox.Show("Пользователь не найден, Зарегистрируйтесь", "Ошибка", MessageBoxButton.OK,MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnReg_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Pages.RegisterPage());
+        }
+
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
     }
 }

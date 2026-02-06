@@ -21,6 +21,7 @@ namespace PR14
             }
         }
 
+        public static Users CurrentUser { get; set; }
     }
 
 }

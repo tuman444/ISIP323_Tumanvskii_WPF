@@ -74,7 +74,7 @@ namespace PR14.Pages
 
             if (SelectedMovie != null)
             {
-
+                //NavigationService.Navigate(new Pages.SessionsPage(SelectedMovie));
             }
         }
     }
