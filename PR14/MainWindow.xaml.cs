@@ -23,6 +23,7 @@ namespace PR14
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new MainPage())
         }
     }
 }
