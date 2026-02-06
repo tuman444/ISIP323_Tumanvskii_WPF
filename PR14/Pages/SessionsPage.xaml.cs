@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PR14
+namespace PR14.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для SessionsPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SessionsPage : Page
     {
-        public MainWindow()
+        public SessionsPage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Pages.MainPage());
         }
     }
 }

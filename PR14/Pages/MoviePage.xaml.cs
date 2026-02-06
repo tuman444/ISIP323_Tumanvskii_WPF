@@ -13,17 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace PR14
+namespace PR14.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для MoviePage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MoviePage : Page
     {
-        public MainWindow()
+        public MoviePage()
         {
             InitializeComponent();
-            MainFrame.Navigate(new Pages.MainPage());
         }
     }
 }

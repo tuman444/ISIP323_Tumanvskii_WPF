@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="15fceeca98124957aade02911286160b" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="CinemaDBModel.Genres" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Halls" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.HallTypes" Width="1.5" PointX="0.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Movies" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Seats" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Sessions" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Tickets" Width="1.5" PointX="7.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CinemaDBModel.Users" Width="1.5" PointX="5.25" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="CinemaDBModel.FK__Halls__HallTypeI__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Seats__HallID__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Sessions__HallID__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Sessions__MovieI__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Tickets__SeatID__6477ECF3" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Tickets__Session__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.FK__Tickets__UserID__6383C8BA" ManuallyRouted="false" />
+        <AssociationConnector Association="CinemaDBModel.MovieGenres" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
