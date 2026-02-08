@@ -9,6 +9,35 @@
       Title="RegisterPage">
 
     <Grid>
-        
+        <Border Background="#6b6b6b" CornerRadius="10" Padding="20" 
+                VerticalAlignment="Center" HorizontalAlignment="Center" Width="300"
+                BorderBrush="#c20081" BorderThickness="3">
+
+            <StackPanel>
+                <TextBlock Text="Регистрация"  FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"  
+                       Foreground="White" />
+
+                <Label Content="Имя:" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                <TextBox x:Name="TxtName" Height="25" VerticalContentAlignment="Center"/>
+
+                <Label Content="Фамилия:" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                <TextBox x:Name="TxtLastName" Height="25"  VerticalContentAlignment="Center"/>
+
+                <Label Content="Логин:" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                <TextBox x:Name="TxtLogin" Height="25"  VerticalContentAlignment="Center"/>
+
+                <Label Content="Пароль" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                <PasswordBox x:Name="PBoxPass" Height="25"  VerticalContentAlignment="Center"/>
+
+                <Label Content="Повторите пароль" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                <PasswordBox x:Name="PBoxPassConfirm" Height="25" Margin="0,0,0,10" VerticalContentAlignment="Center"/>
+
+                <Button Content="Зарегистрироваться" Height="30" Background="#c20081" Foreground="White" 
+                        FontWeight="Bold" FontSize="14"  Click="BtnReg_Click"/>
+
+                <Button Content="Отмена" Margin="0,10,0,10" Background="#c20081" FontWeight="Bold"
+                        Foreground="White" BorderThickness="0" Click="BtnCancel_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

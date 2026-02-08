@@ -24,11 +24,22 @@ namespace PR14.Pages
         {
             InitializeComponent();
             CmbSort.SelectedIndex = 0;
+
+            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateMovies();
+            if (Core.CurrentUser != null)
+            {
+                BtnLogin.Content = "Личный кабинет";
+            }
+            else
+            {
+                BtnLogin.Content = "Регистрация/Вход";
+            }
+
         }
 
         private void UpdateMovies()
@@ -50,6 +61,8 @@ namespace PR14.Pages
                 CurrenMovies = CurrenMovies.OrderByDescending(x => x.Title).ToList();
             }
 
+            
+
             LViewMovies.ItemsSource = CurrenMovies;
         }
 
@@ -65,7 +78,13 @@ namespace PR14.Pages
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Pages.LoginPage());
+            if (Core.CurrentUser != null)
+            {
+                NavigationService.Navigate(new Pages.ProfilePage());
+            }
+            else {
+                NavigationService.Navigate(new Pages.LoginPage());
+            }
         }
 
         private void LViewMovies_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -76,6 +95,7 @@ namespace PR14.Pages
             {
                 //NavigationService.Navigate(new Pages.SessionsPage(SelectedMovie));
             }
+
         }
     }
 }

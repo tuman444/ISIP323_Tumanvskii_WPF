@@ -44,8 +44,9 @@ namespace PR14.Pages
             }
             else
             {
-                MessageBox.Show("Пользователь не найден, Зарегистрируйтесь", "Ошибка", MessageBoxButton.OK,MessageBoxImage.Error);
+                MessageBox.Show("Неверный логин или пароль", "Ошибка", MessageBoxButton.OK,MessageBoxImage.Error);
             }
+            
         }
 
         private void BtnReg_Click(object sender, RoutedEventArgs e)
