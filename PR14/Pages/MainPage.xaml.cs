@@ -24,8 +24,6 @@ namespace PR14.Pages
         {
             InitializeComponent();
             CmbSort.SelectedIndex = 0;
-
-            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -46,11 +44,11 @@ namespace PR14.Pages
         {
             var CurrenMovies = Core.Context.Movies.ToList();
 
+            //Поиск фильма
             if (!string.IsNullOrWhiteSpace(TxtSearch.Text))
             {
                 CurrenMovies = CurrenMovies.Where(x => x.Title.ToLower().Contains(TxtSearch.Text.ToLower())).ToList();
             }
-
 
             if (CmbSort.SelectedIndex == 1)
             {
@@ -89,11 +87,10 @@ namespace PR14.Pages
 
         private void LViewMovies_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var SelectedMovie = LViewMovies.SelectedItem as Movies;
-
-            if (SelectedMovie != null)
+            var selectedMovie = LViewMovies.SelectedItem as Movies; 
+            if (selectedMovie != null)
             {
-                //NavigationService.Navigate(new Pages.SessionsPage(SelectedMovie));
+                NavigationService.Navigate(new Pages.MoviePage(selectedMovie));
             }
 
         }

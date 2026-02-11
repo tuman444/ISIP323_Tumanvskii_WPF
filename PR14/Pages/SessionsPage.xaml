@@ -8,7 +8,40 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SessionsPage">
 
-    <Grid>
-        
+    <Grid Background="#6b6b6b">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="10">
+            <TextBlock x:Name="TxtMovieTitle" Text="Название фильма" FontSize="24" FontWeight="Bold" Foreground="White"/>
+            <TextBlock x:Name="TxtSessionInfo" FontSize="16" Foreground="White" Text="Дата и время | Зал"/>
+            <TextBlock Text="ЭКРАН" FontSize="20" HorizontalAlignment="Center" Margin="0,20,0,5" FontWeight="Bold" 
+                       Background="#c20081" Width="630" TextAlignment="Center" Foreground="White"/>
+        </StackPanel>
+
+        <Viewbox Grid.Row="1" Margin="20">
+            <UniformGrid x:Name="UniGridSeats"/>
+        </Viewbox>
+
+        <Border Grid.Row="2" BorderBrush="#c20081" Padding="15" BorderThickness="3" CornerRadius="10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel VerticalAlignment="Center" Margin="0,0,20,0">
+                <TextBlock Text="Выбрано мест: 0" x:Name="TxtSelectedCount" FontSize="14" Foreground="White" Margin="0,0,15,0"/>
+                <TextBlock Text="Итого: 0 руб." x:Name="TxtTotalPrice" FontSize="14" FontWeight="Bold" Foreground="White"/>
+                </StackPanel>
+
+
+                <Button Content="Купить билеты" Click="BtnBuy_Click" 
+                        Background="#c20081" Foreground="White" 
+                        FontSize="16" FontWeight="Bold" Height="40" Padding="20,0"/>
+
+                <Button Content="Отмена" Click="BtnBack_Click" Margin="10,0,0,0" Height="40" 
+                        FontSize="16" FontWeight="Bold" Background="#c20081" Foreground="White" />
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

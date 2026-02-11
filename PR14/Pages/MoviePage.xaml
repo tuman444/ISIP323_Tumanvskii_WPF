@@ -8,7 +8,54 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MoviePage">
 
-    <Grid>
-        
+    <Grid Background="#6b6b6b">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Image x:Name="ImgMoviePoster" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="10"
+               Stretch="Uniform" VerticalAlignment="Top"/>
+
+        <StackPanel Grid.Row="0" Grid.Column="1" Margin="10">
+            <TextBlock x:Name="TxtTitle" FontSize="30" FontWeight="Bold" TextWrapping="Wrap" Foreground="White"/>
+
+            <TextBlock x:Name="TxtGenres" FontSize="16" Foreground="White" Margin="0,5"/>
+
+            <StackPanel Orientation="Horizontal" Margin="0,10">
+                <TextBlock Text="Рейтинг" FontWeight="Bold" Foreground="White"/>
+                <TextBlock x:Name="TxtRating" Foreground="White" FontWeight="Bold" Margin="0,0,15,0"/>
+
+                <TextBlock Text="Длительность: " FontWeight="Bold" Foreground="White"/>
+                <TextBlock x:Name="TxtDuration" Foreground="White"/>
+                <TextBlock Text=" мин." Foreground="White"/>
+            </StackPanel>
+            
+            <TextBlock Text="Описание:" FontWeight="Bold" Margin="0,10,0,0" Foreground="White"/>
+            <TextBlock x:Name="TxtDescription" TextWrapping="Wrap" FontSize="14" Margin="0,5,0,20" Foreground="White"/>
+
+            <Separator/>
+            <TextBlock Text="Расписание сеансов:" FontSize="16" FontWeight="Bold" Margin="0,10,0,0" Foreground="White"/>
+        </StackPanel>
+
+        <DataGrid x:Name="GridSessions" Grid.Row="1" Grid.Column="1" Margin="10"
+                  AutoGenerateColumns="False" IsReadOnly="True" MouseDoubleClick="GridSessions_MouseDoubleClick"
+                  Background="#3d3d3d">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Дата и время" Binding="{Binding DateTime, StringFormat='dd.MM.yyyy HH:mm'}" 
+                                    Width="*" />
+                <DataGridTextColumn Header="Зал" Binding="{Binding Halls.Name}" Width="*"/>
+                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat='{}{0:N0} руб.'}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Content="Назад к списку фильмов" Grid.Row="2" Grid.ColumnSpan="2" Width="200"
+                Height="40" Margin="10" Click="BtnBack_Click" Background="#c20081" Foreground="White" FontWeight="Bold"/>
     </Grid>
 </Page>
