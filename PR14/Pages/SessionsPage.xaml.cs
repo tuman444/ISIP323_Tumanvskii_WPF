@@ -62,9 +62,10 @@ namespace PR14.Pages
                     if (seatInDb != null)
                     {
                         ToggleButton btn = new ToggleButton();
-                        btn.Width = 35;
-                        btn.Height = 35;
-                        btn.Margin = new Thickness(2);
+                        btn.Width = 15;
+                        btn.Height = 15;
+                        btn.Margin = new Thickness(1);
+                        btn.FontSize = 8;
                         btn.Content = col.ToString();
 
                         btn.Tag = seatInDb;
@@ -86,9 +87,9 @@ namespace PR14.Pages
                     else
                     {
                         Border spacer = new Border();
-                        spacer.Width = 35;
-                        spacer.Height = 35;
-                        spacer.Margin = new Thickness(2);
+                        spacer.Width = 15;
+                        spacer.Height = 15;
+                        spacer.Margin = new Thickness(1);
                         spacer.Visibility = Visibility.Hidden;
                         UniGridSeats.Children.Add(spacer);
                     }
@@ -132,29 +133,20 @@ namespace PR14.Pages
 
             if (MessageBox.Show("Оформить покупку?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
-                try
-                {
-                    foreach(var btn in _selectedButtons)
-                    {
-                        // Достаем объект Seat из Tag который мы положили туда при создании кнопки
-                        var seatData = btn.Tag as Seats;
+                // Собираем список объектов Seats из выбранных кнопок
+                List<Seats> selectedSeatsList = new List<Seats>();
 
-                        Tickets newTicket = new Tickets
-                        {
-                            SessionID = _currentSession.ID,
-                            SeatID = seatData.ID,
-                            UserID = Core.CurrentUser.ID
-                        };
-                        Core.Context.Tickets.Add(newTicket);
-                    }
-                    Core.Context.SaveChanges();
-                    MessageBox.Show("Билеты куплены");
-                    NavigationService.GoBack();
-                }
-                catch (Exception ex)
+                foreach (var btn in _selectedButtons)
                 {
-                    MessageBox.Show("Ошибка: " + ex.Message);
+                    // Достаем объект Seat, который мы спрятали в Tag при создании кнопки
+                    if (btn.Tag is Seats seatObj)
+                    {
+                        selectedSeatsList.Add(seatObj);
+                    }
                 }
+
+                // Переходим на страницу бронирования, передавая сеанс и список мест
+                NavigationService.Navigate(new Pages.BookingPage(_currentSession, selectedSeatsList));
             }
         }
 
