@@ -23,6 +23,13 @@
                     <TextBlock x:Name="TxtHall" FontSize="16" TextWrapping="Wrap" Foreground="White"/>
                 </StackPanel>
             </Border>
+
+            <TextBlock Text="Способ оплаты" FontSize="16" FontWeight="Bold" Margin="10,20,0,5" Foreground="White"/>
+            <ComboBox SelectedIndex="0" Padding="5" Margin="10,5,0,0">
+                <ComboBoxItem Content="Карта"/>
+                <ComboBoxItem Content="СБП"/>
+            </ComboBox>
+            <TextBox Margin="10,10,0,0" Padding="5" Text="**** **** **** ****" IsReadOnly="True" Background="#F0F0F0"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1">

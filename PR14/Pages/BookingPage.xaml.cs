@@ -61,7 +61,7 @@ namespace PR14.Pages
                 }
                 Core.Context.SaveChanges();
 
-                MessageBox.Show("Оплата прошла успешно\n Билеты сохранены!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Оплата прошла успешно\t Билеты сохранены!", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 NavigationService.Navigate(new Pages.MainPage());
             }
