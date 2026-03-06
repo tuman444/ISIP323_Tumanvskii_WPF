@@ -9,6 +9,42 @@
       Title="SavedBuildsPage">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Header="Все сборки" Foreground="Orange" Margin="10" BorderBrush="Orange" FontWeight="Bold">
+            <ListBox x:Name="SaveBuilds" 
+         DisplayMemberPath="name" 
+         SelectionChanged="SaveBuilds_SelectionChanged"
+         Foreground="Orange" FontWeight="Bold"/>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1" Header="Детали сборки" Foreground="Orange" Margin="10" BorderBrush="Orange" FontWeight="Bold">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="0,0,0,10">
+                    <TextBlock x:Name="TbAuthor" FontSize="14" Foreground="Orange" FontWeight="Bold"/>
+                </StackPanel>
+
+                <ListView x:Name="SaveBuildsParts" Grid.Row="1" Background="Transparent" BorderThickness="0">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="Orange" BorderThickness="0,0,0,1" Padding="5">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding name}" FontWeight="Bold" Foreground="Black" />
+                                    <TextBlock Text="{Binding FullDescription}" FontSize="11" Foreground="Gray"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Page>
