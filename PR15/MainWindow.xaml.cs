@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -23,6 +24,17 @@ namespace PR15
         public MainWindow()
         {
             InitializeComponent();
+            MainFrame.Navigate(new Pages.BuilderPage());
         }
+        private void BtnBuilder_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Pages.BuilderPage());
+        }
+
+        private void BntSaved_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new Pages.SavedBuildsPage());
+        }
+
     }
 }
