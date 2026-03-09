@@ -29,6 +29,10 @@
                     <TextBlock Text="Производитель:" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="Orange" FontWeight="Bold"/>
                     <ComboBox x:Name="CmbManufacturer" Width="150" SelectionChanged="CmbManufacturer_SelectionChanged"/>
                 </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,15,5">
+                    <TextBlock Text="Тип детали:" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="Orange" FontWeight="Bold"/>
+                    <ComboBox x:Name="CbCategory" Width="200"  SelectionChanged="CbCategory_SelectionChanged"/>
+                </StackPanel>
             </WrapPanel>
 
             <ListView x:Name="LvCatalog" 

@@ -41,6 +41,20 @@ namespace PR15.Pages
                 CmbManufacturer.DisplayMemberPath = "name";
                 CmbManufacturer.SelectedIndex = 0;
 
+                var categories = new List<string>
+                {
+                    "Все категории",
+                    "Процессоры",
+                    "Видеокарты",
+                    "Материнские платы",
+                    "Оперативная память",
+                    "Блоки питания",
+                    "Накопители",
+                    "Охлаждение",
+                    "Корпуса"
+                };
+                CbCategory.ItemsSource = categories;
+                CbCategory.SelectedIndex = 0;
                 UpdateData();
             }
             catch (Exception ex)
@@ -51,7 +65,16 @@ namespace PR15.Pages
 
         private void UpdateData()
         {
-            var currentParts = Core.DB.basepart.ToList();
+            var currentParts = Core.DB.basepart
+            .Include("cpu")
+            .Include("gpu")
+            .Include("motherboard")
+            .Include("ram")
+            .Include("powersupply")
+            .Include("storagedevice")
+            .Include("processorcooler")
+            .Include("PC_case")
+            .ToList();
 
             if (!string.IsNullOrWhiteSpace(TbxSearch.Text))
             {
@@ -63,6 +86,21 @@ namespace PR15.Pages
                 currentParts = currentParts.Where(p => p.manufacturerid == selectedManufacturer.id).ToList();
             }
 
+            if (CbCategory.SelectedItem is string selectedCategory && selectedCategory != "Все категории")
+            {
+                switch (selectedCategory)
+                {
+                    case "Процессоры": currentParts = currentParts.Where(p => p.cpu != null).ToList(); break;
+                    case "Видеокарты": currentParts = currentParts.Where(p => p.gpu != null).ToList(); break;
+                    case "Материнские платы": currentParts = currentParts.Where(p => p.motherboard != null).ToList(); break;
+                    case "Оперативная память": currentParts = currentParts.Where(p => p.ram != null).ToList(); break;
+                    case "Блоки питания": currentParts = currentParts.Where(p => p.powersupply != null).ToList(); break;
+                    case "Накопители": currentParts = currentParts.Where(p => p.storagedevice != null).ToList(); break;
+                    case "Охлаждение": currentParts = currentParts.Where(p => p.processorcooler != null).ToList(); break;
+                    case "Корпуса": currentParts = currentParts.Where(p => p.PC_case != null).ToList(); break;
+                }
+            }
+
             LvCatalog.ItemsSource = currentParts;
         }
         private void TbxSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -71,6 +109,10 @@ namespace PR15.Pages
         }
 
         private void CmbManufacturer_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateData();
+        }
+        private void CbCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateData();
         }
@@ -115,9 +157,12 @@ namespace PR15.Pages
                     MessageBox.Show("Корпус уже добавлен", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+                if (!CheckCompatibility(selectedPart))
+                {
+                    return;  
+                }
                 _buildParts.Add(selectedPart);
                 CalculateTotal();
-                CheckCompatibility();
             }
         }
         private void BtnRemove_Click(object sender, EventArgs e)
@@ -134,55 +179,51 @@ namespace PR15.Pages
             decimal total = _buildParts.Sum(p => p.price);
             TbTotalPrice.Text = $"{total:N0} Р";
         }
-        private void CheckCompatibility()
+        private bool CheckCompatibility(basepart selectedPart)
         {
-            var cpuPart = _buildParts.FirstOrDefault(p => p.cpu != null)?.cpu;
-            var moboPart = _buildParts.FirstOrDefault(p => p.motherboard != null)?.motherboard;
-            var gpuPart = _buildParts.FirstOrDefault(p => p.gpu != null)?.gpu;
-            var ramPart = _buildParts.FirstOrDefault(p => p.ram != null)?.ram;
-            var psuPART = _buildParts.FirstOrDefault(P => P.powersupply != null)?.powersupply;
-
-            if (cpuPart != null && moboPart != null)
+            var cpu = _buildParts.FirstOrDefault(p => p.cpu != null)?.cpu ?? selectedPart.cpu;
+            var mobo = _buildParts.FirstOrDefault(p => p.motherboard != null)?.motherboard ?? selectedPart.motherboard;
+            var ram = _buildParts.FirstOrDefault(p => p.ram != null)?.ram ?? selectedPart.ram;
+            var gpu = _buildParts.FirstOrDefault(p => p.gpu != null)?.gpu ?? selectedPart.gpu;
+            var psu = _buildParts.FirstOrDefault(p => p.powersupply != null)?.powersupply ?? selectedPart.powersupply;
+            if (cpu != null && mobo != null)
             {
-                if (cpuPart.socketid != moboPart.socketid)
+                if (cpu.socketid != mobo.socketid)
                 {
                     MessageBox.Show("Ошибка: Сокет процессора не совпадает с сокетом материнской платы!",
                         "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    return false;
                 }
             }
-            if (moboPart != null && ramPart != null)
+            if (mobo != null && ram != null)
             {
-                if (moboPart.memorytypeid != ramPart.memorytypeid)
+                if (mobo.memorytypeid != ram.memorytypeid)
                 {
                     MessageBox.Show("Ошибка: Тип оперативной памяти не поддерживается материнской платой!",
                                     "Ошибка совместимости", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
+                    return false;
                 }
             }
-            if (psuPART != null)
+            if (psu != null)
             {
                 int requiredPower = 0;
-
-                if (gpuPart != null && gpuPart.recommendpower != null)
-                {
-                    requiredPower = gpuPart.recommendpower.Value;
-                }
+                if (gpu != null && gpu.recommendpower != null)
+                    requiredPower = gpu.recommendpower.Value;
                 else
                 {
-                    // Если видеокарты нет (или у неё нет рек. мощности), считаем базовое потребление
-                    if (cpuPart != null) requiredPower += cpuPart.thermalpower;
-                    requiredPower += 100;
+                    if (cpu != null) requiredPower += cpu.thermalpower;
+                    requiredPower += 150; 
                 }
 
-                if (requiredPower > psuPART.power)
+                if (requiredPower > psu.power)
                 {
-                    MessageBox.Show($"Внимание: Рекомендуемая мощность БП для вашей сборки от {requiredPower}W, " +
-                            $"Выбранный блок питания выдает {psuPART.power}W. Возможны отключения ПК под нагрузкой!",
-                            "Неподходящий блок питания", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
+                    MessageBox.Show($"Внимание: Рекомендуемая мощность БП от {requiredPower}W. " +
+                                    $"Выбранный БП выдает {psu.power}W.",
+                                    "Недостаточная мощность", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
                 }
             }
+            return true;
         }
         private void BtnSaveAssembly_Click(object sender, RoutedEventArgs e)
         {

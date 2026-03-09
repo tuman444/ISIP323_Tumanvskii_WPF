@@ -69,6 +69,7 @@
     <Compile Include="basepart.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="BasePartExtension.cs" />
     <Compile Include="boardformfactorcase.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
