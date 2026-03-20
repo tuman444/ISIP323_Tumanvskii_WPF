@@ -5,44 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR16"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800">
+        Title="Рогалик" Height="600" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,10">
-            <TextBlock x:Name="FloorText" Text="Уровень 1" FontSize="18" FontWeight="Bold"/>
-            <TextBlock x:Name="HealthText" Text="Здоровье 100/100" FontSize="18" FontWeight="Bold" Foreground="Red" Margin="10,0,0,0"/>
-        </StackPanel>
-        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="2" Margin="0,0,0,10">
-            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image x:Name="MainImage" Width="200" Height="200"/>
-                <TextBlock x:Name="EntityNameText" Text="Враг/Сундук" FontSize="24" HorizontalAlignment="Center" Margin="0,10"/>
 
-                <StackPanel x:Name="ActionPanel" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="AttackBtn" Content="Атака" Width="100" Margin="5" Click="AttackBtn_Click"/>
-                    <Button x:Name="DefendBtn" Content="Защита" Width="100" Margin="5" Click="DefendBtn_Click"/>
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#EEE" Padding="10" CornerRadius="5" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                <TextBlock x:Name="TxtTurn" Text="Комната: 1" FontSize="20" FontWeight="Bold"/>
+                <TextBlock x:Name="TxtHP" Text="HP: 100/100" FontSize="20" FontWeight="Bold" Foreground="#D32F2F" HorizontalAlignment="Right" Width="500" TextAlignment="Right"/>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,0,0,10" Background="#FAFAFA">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+
+                <Image x:Name="ImgEvent" Width="150" Height="150" Margin="0,0,0,15" Stretch="Uniform"/>
+
+                <TextBlock x:Name="TxtEvent" Text="Вы входите в подземелье..." FontSize="22" FontWeight="Medium" TextAlignment="Center" Margin="0,0,0,20"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="BtnNextRoom" Content="Идти дальше" Width="150" Height="40" Margin="5" FontSize="16" Click="BtnNextRoom_Click"/>
+
+                    <Button x:Name="BtnAttack" Content="Атаковать" Width="120" Height="40" Margin="5" FontSize="16" Background="#FFCDD2" Click="BtnAttack_Click"/>
+                    <Button x:Name="BtnDefend" Content="Защита" Width="120" Height="40" Margin="5" FontSize="16" Background="#BBDEFB" Click="BtnDefend_Click"/>
+
+                    <Button x:Name="BtnTake" Content="Взять предмет" Width="140" Height="40" Margin="5" FontSize="16" Background="#C8E6C9" Click="BtnTake_Click"/>
+                    <Button x:Name="BtnSkip" Content="Пройти мимо" Width="140" Height="40" Margin="5" FontSize="16" Click="BtnSkip_Click"/>
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Black" BorderThickness="2" Margin="0,0,5,0" Padding="10">
+        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,0,10,0" Padding="10">
             <StackPanel>
-                <TextBlock Text="Инвентарь" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-                <TextBlock x:Name="WeaponText" Text="Оружие: Кулаки"/>
-                <TextBlock x:Name="ArmorText" Text="Доспехи: Одежда"/>
+                <TextBlock Text="Снаряжение:" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock x:Name="TxtWeapon" Text="Оружие: Кулаки" FontSize="16" TextWrapping="Wrap" Margin="0,0,0,5"/>
+                <TextBlock x:Name="TxtArmor" Text="Броня: Одежда" FontSize="16" TextWrapping="Wrap"/>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Black" BorderThickness="2" Margin="5,0,0,0" Padding="10">
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
             <ScrollViewer x:Name="LogScroll">
-                <TextBlock x:Name="LogText" TextWrapping="Wrap" Padding="10"/>
+                <TextBlock x:Name="TxtLog" FontSize="14" TextWrapping="Wrap" Padding="5"/>
             </ScrollViewer>
         </Border>
     </Grid>
