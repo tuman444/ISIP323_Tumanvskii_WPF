@@ -55,25 +55,27 @@ namespace PR16.Models
         {
             if (IsDefending)
             {
+                // 40% шанс полностью уклониться
                 if (random.NextDouble() < 0.4)
                 {
-                    log("Вы увернулись от атаки!");
+                    log("Вы полностью уклонились от атаки!");
                     IsDefending = false;
                     return;
                 }
 
                 if (!ignoreArmor)
                 {
-                    double blockPercent = 0.7 + (random.NextDouble() * 0.3);
-                    int blockedDamage = (int)(CurrentArmor.Defense * blockPercent);
+                    // Блок 70-100% от показателя защиты
+                    double blockFactor = 0.7 + (random.NextDouble() * 0.3);
+                    int blockedDamage = (int)(CurrentArmor.Defense * blockFactor);
                     damage = Math.Max(0, damage - blockedDamage);
-                    log($"Вы заблокировали {blockedDamage} урона!");
+                    log($"Блок сработал! Поглощено {blockedDamage} урона.");
                 }
                 IsDefending = false;
             }
 
             HP = Math.Max(0, HP - damage);
-            log($"Вы получили {damage} урона. Осталось HP: {HP}");
+            log($"Урон: {damage}. Текущее HP: {HP}");
         }
 
         public void FullHeal(Action<string> log)

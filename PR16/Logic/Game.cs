@@ -120,7 +120,6 @@ namespace PR16.Logic
             }
         }
 
-        // Исправленный метод без использования синтаксиса C# 8.0+
         private Enemy GenerateRandomEnemy()
         {
             int type = random.Next(0, 3);
@@ -144,6 +143,13 @@ namespace PR16.Logic
                 case 3: return new PestovC();
                 default: return new VVG();
             }
+        }
+
+        public void LeaveItem()
+        {
+            Log("Вы решили оставить предмет и пойти дальше.");
+            CurrentItemInChest = null;
+            TurnCount++; // Переходим на следующий этаж
         }
     }
 }
