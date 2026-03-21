@@ -99,6 +99,32 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\goblin.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\mage.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\skeleton.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dungeon.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\chest.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\archmagecpp.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\pestovc.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\vvg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\kovalsky.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

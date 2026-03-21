@@ -28,7 +28,7 @@
         <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,0,0,10" Background="#FAFAFA">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                <Image x:Name="ImgEvent" Width="150" Height="150" Margin="0,0,0,15" Stretch="Uniform"/>
+                <Image x:Name="ImgEvent" Width="350" Height="200" Margin="0,0,0,15" Stretch="Uniform" Source="/Images/dungeon.jpg"/>
 
                 <TextBlock x:Name="TxtEvent" Text="Вы входите в подземелье..." FontSize="22" FontWeight="Medium" TextAlignment="Center" Margin="0,0,0,20"/>
 

@@ -42,6 +42,48 @@ namespace PR16
             LogScroll.ScrollToEnd();
         }
 
+        private void UpdateSceneImage()
+        {
+            string imageName = "dungeon.jpg"; // По умолчанию
+
+            if (game.CurrentItemInChest != null)
+            {
+                imageName = "chest.jpg";
+            }
+            else if (game.CurrentEnemies.Count > 0)
+            {
+                // Берем первого врага в списке для отображения
+                var enemy = game.CurrentEnemies.First();
+
+                // --- БЛОК ТОЧНОЙ ПРОВЕРКИ БОССОВ (Приоритет) ---
+                // Используем старый синтаксис switch/case для C# 7.3
+
+                // Сначала проверяем на боссов, так как они наследуются от обычных врагов
+                if (enemy is VVG) imageName = "vvg.jpg";
+                else if (enemy is Kovalsky) imageName = "kovalsky.jpg";
+                else if (enemy is ArchmageCPP) imageName = "archmagecpp.jpg";
+                else if (enemy is PestovC) imageName = "pestovc.png";
+
+                // --- БЛОК ПРОВЕРКИ ОБЫЧНЫХ ВРАГОВ (Если это не босс) ---
+                else if (enemy is Goblin) imageName = "goblin.jpg";
+                else if (enemy is Skeleton) imageName = "skeleton.jpg";
+                else if (enemy is Mage) imageName = "mage.jpg";
+            }
+
+            try
+            {
+                // Пытаемся загрузить изображение
+                Uri imageUri = new Uri($"pack://application:,,,/Images/{imageName}", UriKind.Absolute);
+                ImgEvent.Source = new BitmapImage(imageUri);
+            }
+            catch (Exception ex)
+            {
+                // Если картинка не нашлась, логируем ошибку и ставим заглушку
+                AddToLog($"[Ошибка загрузки картинки: {imageName}] - {ex.Message}");
+                ImgEvent.Source = null; // Или загрузите дефолтную картинку ошибки
+            }
+        }
+
         private void UpdateUI()
         {
             TxtHP.Text = $"HP: {game.Player.HP}/{game.Player.MaxHP}";
@@ -71,16 +113,16 @@ namespace PR16
         {
             game.NextRoom();
 
+            // Теперь, когда комната сгенерирована, обновляем картинку
+            UpdateSceneImage();
+
             if (game.CurrentItemInChest != null)
             {
+                // Логика сравнения характеристик (уже была у нас)
                 var item = game.CurrentItemInChest;
                 string diff = "";
-
-                // Логика сравнения характеристик
-                if (item is Weapon w)
-                    diff = $"\n(Новое: {w.Damage} атк | Текущее: {game.Player.CurrentWeapon.Damage} атк)";
-                else if (item is Armor a)
-                    diff = $"\n(Новое: {a.Defense} защ | Текущее: {game.Player.CurrentArmor.Defense} защ)";
+                if (item is Weapon w) diff = $"\n({w.Damage} атк vs {game.Player.CurrentWeapon.Damage} атк)";
+                else if (item is Armor a) diff = $"\n({a.Defense} защ vs {game.Player.CurrentArmor.Defense} защ)";
 
                 TxtEvent.Text = $"В сундуке: {item.Name}{diff}";
             }

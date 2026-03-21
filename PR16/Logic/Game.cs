@@ -20,7 +20,7 @@ namespace PR16.Logic
 
         public Game()
         {
-            Player = new Player(100);
+            Player = new Player(1000000);
             random = new Random();
             TurnCount = 1;
             CurrentEnemies = new List<Enemy>();
