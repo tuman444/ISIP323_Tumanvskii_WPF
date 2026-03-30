@@ -52,14 +52,12 @@ namespace PR16
         {
             SceneImagesPanel.Children.Clear();
 
-            // Если игра еще не начата
             if (!isGameStarted)
             {
                 AddImageToScene("dungeon.jpg");
-                return; 
+                return;
             }
 
-            // Если игра идет, проверяем сундуки и врагов
             if (game.CurrentItemInChest != null)
             {
                 AddImageToScene("chest.jpg");
@@ -68,13 +66,13 @@ namespace PR16
             {
                 foreach (var enemy in game.CurrentEnemies)
                 {
-                    AddImageToScene(GetEnemyImageName(enemy));
+                    string imageName = GetEnemyImageName(enemy);
+                    AddImageToScene(imageName, enemy);
                 }
             }
             else
             {
-                // Если зачистили комнату
-                AddImageToScene("dungeon.png");
+                AddImageToScene("dungeon.jpg");
             }
         }
 
@@ -92,27 +90,79 @@ namespace PR16
             return "dungeon.jpg"; 
         }
 
-        private void AddImageToScene(string imageName)
+        private void AddImageToScene(string imageName, Enemy enemy = null)
         {
             try
             {
                 Uri imageUri = new Uri($"pack://application:,,,/Images/{imageName}", UriKind.Absolute);
 
-                // Создаем новый элемент Image программно
+                // Общий контейнер для одного юнита
+                StackPanel enemyUnit = new StackPanel
+                {
+                    Margin = new Thickness(10, 5, 10, 5),
+                    Width = 200,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
                 Image img = new Image
                 {
                     Source = new BitmapImage(imageUri),
-                    Width = 200, 
-                    Height = 200,
-                    Margin = new Thickness(10, 0, 10, 0), 
-                    Stretch = System.Windows.Media.Stretch.Uniform
+                    Height = 300, 
+                    Stretch = Stretch.Uniform,
+                    Margin = new Thickness(0, 0, 0, 8) 
                 };
+                enemyUnit.Children.Add(img);
 
-                SceneImagesPanel.Children.Add(img);
+                if (enemy != null)
+                {
+                    // Контейнер для HP 
+                    Border hpContainer = new Border
+                    {
+                        Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(230, 230, 230)),
+                        CornerRadius = new CornerRadius(3),
+                        Height = 16,
+                        Width = 120,
+                        BorderBrush = System.Windows.Media.Brushes.Gray,
+                        BorderThickness = new Thickness(1)
+                    };
+
+                    // Сетка для наложения текста поверх полоски HP
+                    Grid hpGrid = new Grid();
+
+                    // Сама полоска HP 
+                    ProgressBar pbHP = new ProgressBar
+                    {
+                        Minimum = 0,
+                        Maximum = enemy.MaxHP,
+                        Value = enemy.HP,
+                        Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(211, 47, 47)), // Красный
+                        Background = System.Windows.Media.Brushes.Transparent,
+                        BorderThickness = new Thickness(0)
+                    };
+                    hpGrid.Children.Add(pbHP);
+
+                    // Текст с цифрами поверх полоски
+                    TextBlock txtHP = new TextBlock
+                    {
+                        Text = $"{enemy.HP}/{enemy.MaxHP}",
+                        FontSize = 10,
+                        FontWeight = FontWeights.Bold,
+                        Foreground = System.Windows.Media.Brushes.Black,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        VerticalAlignment = VerticalAlignment.Center
+                    };
+                    hpGrid.Children.Add(txtHP);
+
+                    hpContainer.Child = hpGrid;
+                    enemyUnit.Children.Add(hpContainer);
+                }
+
+                // Добавляем готовую карточку на главную панель
+                SceneImagesPanel.Children.Add(enemyUnit);
             }
             catch (Exception ex)
             {
-                AddToLog($"[Ошибка загрузки: {imageName}]");
+                AddToLog($"Ошибка отрисовки {imageName}");
             }
         }
 
@@ -138,6 +188,7 @@ namespace PR16
                 if (result == MessageBoxResult.Yes) StartNewGame();
                 else Close();
             }
+            UpdateSceneImage();
         }
 
         private void BtnNextRoom_Click(object sender, RoutedEventArgs e)

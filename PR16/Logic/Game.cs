@@ -149,7 +149,7 @@ namespace PR16.Logic
         {
             Log("Вы решили оставить предмет и пойти дальше.");
             CurrentItemInChest = null;
-            TurnCount++; \
+            TurnCount++; 
         }
     }
 }

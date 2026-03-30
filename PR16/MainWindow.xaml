@@ -20,7 +20,7 @@
 
         <Border Grid.Row="0" Grid.ColumnSpan="2" Background="DarkSlateGray" Padding="10" CornerRadius="5" Margin="0,0,0,10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock x:Name="TxtTurn" Text="Комната: 1" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <TextBlock x:Name="TxtTurn" Text="Этаж: 1" FontSize="20" FontWeight="Bold" Foreground="White"/>
                 <TextBlock x:Name="TxtHP" Text="HP: 100/100" FontSize="20" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Right" Width="500" TextAlignment="Right"/>
             </StackPanel>
         </Border>
