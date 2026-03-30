@@ -22,6 +22,7 @@ namespace PR16
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool isGameStarted = false;
         private Game game;
         public MainWindow()
         {
@@ -32,7 +33,12 @@ namespace PR16
         {
             game = new Game();
             game.OnLogMessage += AddToLog;
-            TxtLog.Text = "--- Начало нового приключения ---\n";
+            isGameStarted = false; 
+
+            TxtLog.Text = "--- Вы стоите перед входом в темное подземелье ---\n";
+            TxtEvent.Text = "Нажмите 'Идти дальше', чтобы начать приключение";
+
+            UpdateSceneImage();
             UpdateUI();
         }
 
@@ -44,43 +50,69 @@ namespace PR16
 
         private void UpdateSceneImage()
         {
-            string imageName = "dungeon.jpg"; // По умолчанию
+            SceneImagesPanel.Children.Clear();
 
+            // Если игра еще не начата
+            if (!isGameStarted)
+            {
+                AddImageToScene("dungeon.jpg");
+                return; 
+            }
+
+            // Если игра идет, проверяем сундуки и врагов
             if (game.CurrentItemInChest != null)
             {
-                imageName = "chest.jpg";
+                AddImageToScene("chest.jpg");
             }
             else if (game.CurrentEnemies.Count > 0)
             {
-                // Берем первого врага в списке для отображения
-                var enemy = game.CurrentEnemies.First();
-
-                // --- БЛОК ТОЧНОЙ ПРОВЕРКИ БОССОВ (Приоритет) ---
-                // Используем старый синтаксис switch/case для C# 7.3
-
-                // Сначала проверяем на боссов, так как они наследуются от обычных врагов
-                if (enemy is VVG) imageName = "vvg.jpg";
-                else if (enemy is Kovalsky) imageName = "kovalsky.jpg";
-                else if (enemy is ArchmageCPP) imageName = "archmagecpp.jpg";
-                else if (enemy is PestovC) imageName = "pestovc.png";
-
-                // --- БЛОК ПРОВЕРКИ ОБЫЧНЫХ ВРАГОВ (Если это не босс) ---
-                else if (enemy is Goblin) imageName = "goblin.jpg";
-                else if (enemy is Skeleton) imageName = "skeleton.jpg";
-                else if (enemy is Mage) imageName = "mage.jpg";
+                foreach (var enemy in game.CurrentEnemies)
+                {
+                    AddImageToScene(GetEnemyImageName(enemy));
+                }
             }
+            else
+            {
+                // Если зачистили комнату
+                AddImageToScene("dungeon.png");
+            }
+        }
 
+        private string GetEnemyImageName(Enemy enemy)
+        {
+            if (enemy is VVG) return "vvg.jpg";
+            if (enemy is Kovalsky) return "kovalsky.jpg";
+            if (enemy is ArchmageCPP) return "archmagecpp.jpg";
+            if (enemy is PestovC) return "pestovc.png";
+
+            if (enemy is Goblin) return "goblin.jpg";
+            if (enemy is Skeleton) return "skeleton.jpg";
+            if (enemy is Mage) return "mage.jpg";
+
+            return "dungeon.jpg"; 
+        }
+
+        private void AddImageToScene(string imageName)
+        {
             try
             {
-                // Пытаемся загрузить изображение
                 Uri imageUri = new Uri($"pack://application:,,,/Images/{imageName}", UriKind.Absolute);
-                ImgEvent.Source = new BitmapImage(imageUri);
+
+                // Создаем новый элемент Image программно
+                Image img = new Image
+                {
+                    Source = new BitmapImage(imageUri),
+                    Width = 200, 
+                    Height = 200,
+                    Margin = new Thickness(10, 0, 10, 0), 
+                    Stretch = System.Windows.Media.Stretch.Uniform
+                };
+
+                SceneImagesPanel.Children.Add(img);
             }
             catch (Exception ex)
             {
-                // Если картинка не нашлась, логируем ошибку и ставим заглушку
-                AddToLog($"[Ошибка загрузки картинки: {imageName}] - {ex.Message}");
-                ImgEvent.Source = null; // Или загрузите дефолтную картинку ошибки
+                AddToLog($"[Ошибка загрузки: {imageName}]");
             }
         }
 
@@ -102,7 +134,6 @@ namespace PR16
 
             if (!game.Player.IsAlive())
             {
-                // Страница окончания игры по ТЗ
                 var result = MessageBox.Show("Вы погибли! Начать заново?", "Игра окончена", MessageBoxButton.YesNo);
                 if (result == MessageBoxResult.Yes) StartNewGame();
                 else Close();
@@ -111,14 +142,13 @@ namespace PR16
 
         private void BtnNextRoom_Click(object sender, RoutedEventArgs e)
         {
-            game.NextRoom();
+            isGameStarted = true; 
 
-            // Теперь, когда комната сгенерирована, обновляем картинку
+            game.NextRoom();
             UpdateSceneImage();
 
             if (game.CurrentItemInChest != null)
             {
-                // Логика сравнения характеристик (уже была у нас)
                 var item = game.CurrentItemInChest;
                 string diff = "";
                 if (item is Weapon w) diff = $"\n({w.Damage} атк vs {game.Player.CurrentWeapon.Damage} атк)";

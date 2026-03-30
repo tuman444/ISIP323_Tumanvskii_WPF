@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PR16"
         mc:Ignorable="d"
-        Title="Рогалик" Height="600" Width="800">
-    <Grid>
+        Title="Рогалик" Height="700" Width="900">
+    <Grid Background="Gray">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
 
@@ -18,43 +18,42 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="#EEE" Padding="10" CornerRadius="5" Margin="0,0,0,10">
+        <Border Grid.Row="0" Grid.ColumnSpan="2" Background="DarkSlateGray" Padding="10" CornerRadius="5" Margin="0,0,0,10">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                <TextBlock x:Name="TxtTurn" Text="Комната: 1" FontSize="20" FontWeight="Bold"/>
-                <TextBlock x:Name="TxtHP" Text="HP: 100/100" FontSize="20" FontWeight="Bold" Foreground="#D32F2F" HorizontalAlignment="Right" Width="500" TextAlignment="Right"/>
+                <TextBlock x:Name="TxtTurn" Text="Комната: 1" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                <TextBlock x:Name="TxtHP" Text="HP: 100/100" FontSize="20" FontWeight="Bold" Foreground="Red" HorizontalAlignment="Right" Width="500" TextAlignment="Right"/>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,0,0,10" Background="#FAFAFA">
+        <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,5,0,10" Background="Gray">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-
-                <Image x:Name="ImgEvent" Width="350" Height="200" Margin="0,0,0,15" Stretch="Uniform" Source="/Images/dungeon.jpg"/>
-
-                <TextBlock x:Name="TxtEvent" Text="Вы входите в подземелье..." FontSize="22" FontWeight="Medium" TextAlignment="Center" Margin="0,0,0,20"/>
+                <StackPanel x:Name="SceneImagesPanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                </StackPanel>
+                <TextBlock x:Name="TxtEvent" Text="Вы входите в подземелье..." FontSize="22" FontWeight="Medium" TextAlignment="Center" Margin="0,0,0,20" Foreground="White"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="BtnNextRoom" Content="Идти дальше" Width="150" Height="40" Margin="5" FontSize="16" Click="BtnNextRoom_Click"/>
+                    <Button x:Name="BtnNextRoom" Content="Идти дальше" Width="150" Height="40" Margin="5" FontSize="16" Click="BtnNextRoom_Click" Foreground="White" Background="DarkSlateGray" FontWeight="Bold" />
 
-                    <Button x:Name="BtnAttack" Content="Атаковать" Width="120" Height="40" Margin="5" FontSize="16" Background="#FFCDD2" Click="BtnAttack_Click"/>
-                    <Button x:Name="BtnDefend" Content="Защита" Width="120" Height="40" Margin="5" FontSize="16" Background="#BBDEFB" Click="BtnDefend_Click"/>
+                    <Button x:Name="BtnAttack" Content="Атаковать" Width="120" Height="40" Margin="5" FontSize="16" Background="red" Click="BtnAttack_Click" FontWeight="Bold" Foreground="White"/>
+                    <Button x:Name="BtnDefend" Content="Защита" Width="120" Height="40" Margin="5" FontSize="16" Background="Blue" Click="BtnDefend_Click" Foreground="White" FontWeight="Bold"/>
 
-                    <Button x:Name="BtnTake" Content="Взять предмет" Width="140" Height="40" Margin="5" FontSize="16" Background="#C8E6C9" Click="BtnTake_Click"/>
-                    <Button x:Name="BtnSkip" Content="Пройти мимо" Width="140" Height="40" Margin="5" FontSize="16" Click="BtnSkip_Click"/>
+                    <Button x:Name="BtnTake" Content="Взять предмет" Width="140" Height="40" Margin="5" FontSize="16" Background="Green" Click="BtnTake_Click" FontWeight="Bold" Foreground="White"/>
+                    <Button x:Name="BtnSkip" Content="Пройти мимо" Width="140" Height="40" Margin="5" FontSize="16" Click="BtnSkip_Click" Background="DarkSlateGray" Foreground="White" FontWeight="Bold"/>
                 </StackPanel>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,0,10,0" Padding="10">
+        <Border Grid.Row="2" Grid.Column="0" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Margin="0,0,10,0" Padding="10" Background="DarkSlateGray">
             <StackPanel>
-                <TextBlock Text="Снаряжение:" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
-                <TextBlock x:Name="TxtWeapon" Text="Оружие: Кулаки" FontSize="16" TextWrapping="Wrap" Margin="0,0,0,5"/>
-                <TextBlock x:Name="TxtArmor" Text="Броня: Одежда" FontSize="16" TextWrapping="Wrap"/>
+                <TextBlock Text="Снаряжение:" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" Foreground="White"/>
+                <TextBlock x:Name="TxtWeapon" Text="Оружие: Кулаки" FontSize="16" TextWrapping="Wrap" Margin="0,0,0,5" Foreground="White"/>
+                <TextBlock x:Name="TxtArmor" Text="Броня: Одежда" FontSize="16" TextWrapping="Wrap" Foreground="White"/>
             </StackPanel>
         </Border>
 
-        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5">
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="5" Background="DarkSlateGray">
             <ScrollViewer x:Name="LogScroll">
-                <TextBlock x:Name="TxtLog" FontSize="14" TextWrapping="Wrap" Padding="5"/>
+                <TextBlock x:Name="TxtLog" FontSize="14" TextWrapping="Wrap" Padding="5" Foreground="White"/>
             </ScrollViewer>
         </Border>
     </Grid>

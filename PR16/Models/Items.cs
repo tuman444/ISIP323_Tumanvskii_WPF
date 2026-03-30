@@ -45,7 +45,6 @@ namespace PR16.Models
 
         public override void Use(Player player, Action<string> log)
         {
-            // Теперь просто вызываем метод полного исцеления
             player.FullHeal(log);
         }
 

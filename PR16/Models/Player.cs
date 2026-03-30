@@ -77,7 +77,6 @@ namespace PR16.Models
             HP = Math.Max(0, HP - damage);
             log($"Урон: {damage}. Текущее HP: {HP}");
         }
-
         public void FullHeal(Action<string> log)
         {
             HP = MaxHP;

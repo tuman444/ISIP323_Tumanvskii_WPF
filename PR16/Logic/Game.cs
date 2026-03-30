@@ -35,14 +35,14 @@ namespace PR16.Logic
 
             Log($"\n=== Этаж {TurnCount} ===");
 
-            // 1. Проверка на босса (каждые 10 ходов)
+            // Проверка на босса 
             if (TurnCount > 0 && TurnCount % 10 == 0)
             {
                 Enemy boss = GenerateRandomBoss();
                 CurrentEnemies.Add(boss);
                 Log($"!!! ПОЯВИЛСЯ БОСС: {boss.Name} !!!");
             }
-            // 2. Шанс 50/50: Сундук или Враги
+            // Шанс 50/50: Сундук или Враги
             else if (random.NextDouble() < 0.5)
             {
                 Chest chest = new Chest();
@@ -51,7 +51,7 @@ namespace PR16.Logic
             }
             else
             {
-                // 3. Генерация группы врагов (от 1 до 3 по ТЗ)
+                // Генерация группы врагов 
                 int enemyCount = random.Next(1, 4);
                 for (int i = 0; i < enemyCount; i++)
                 {
@@ -149,7 +149,7 @@ namespace PR16.Logic
         {
             Log("Вы решили оставить предмет и пойти дальше.");
             CurrentItemInChest = null;
-            TurnCount++; // Переходим на следующий этаж
+            TurnCount++; \
         }
     }
 }

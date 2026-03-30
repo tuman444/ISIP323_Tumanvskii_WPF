@@ -33,9 +33,6 @@ namespace PR16.Models
         public bool IsAlive() => HP > 0;
         public virtual string GetInfo() => $"{Name} (HP: {HP}/{MaxHP}, Атака: {Attack}, Защита: {Defense})";
     }
-
-    // --- ОБЫЧНЫЕ ВРАГИ ---
-
     public class Goblin : Enemy
     {
         public double CritChance { get; private set; }
@@ -92,9 +89,6 @@ namespace PR16.Models
         }
         public override string GetInfo() => base.GetInfo() + $", Заморозка: {FreezeChance * 100}%";
     }
-
-    // --- БОССЫ ---
-
     public class VVG : Goblin
     {
         public VVG() : base("ВВГ", 100, 15, 12, 0.3) { }
