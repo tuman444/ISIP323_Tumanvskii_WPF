@@ -50,7 +50,7 @@ namespace PR17
                         MainFrame.Navigate(new Pages.Shop.ProductsPage());
                         break;
                     case "Account":
-                        // MainFrame.Navigate(new Pages.Auth.AccountPage()); // Раскомментируй, когда создашь страницу
+                        MainFrame.Navigate(new Pages.Auth.AccountPage()); // Раскомментируй, когда создашь страницу
                         break;
                     case "Master":
                         // MainFrame.Navigate(new Pages.Master.MasterPage());
@@ -87,49 +87,52 @@ namespace PR17
         // Проверка ролей 
         public void CheckRolePermissions()
         {
-            // 1. Сначала всё скрываем
+            // Сбрасываем видимость всех доп. кнопок меню
             BtnMyRecords.Visibility = Visibility.Collapsed;
             BtnMasterRecords.Visibility = Visibility.Collapsed;
             BtnManagerPanel.Visibility = Visibility.Collapsed;
             BtnAdminPanel.Visibility = Visibility.Collapsed;
 
-            // 2. Если никто не авторизован
             if (Core.AuthUser == null)
             {
+                // СОСТОЯНИЕ: ГОСТЬ
                 TxtCurrentUser.Text = "Вы вошли как: Гость";
                 BtnLogin.Content = "Войти в аккаунт";
-                BtnLogin.Background = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#E67E22")); // Оранжевый
-                return;
+                BtnLogin.Background = new SolidColorBrush(Color.FromRgb(230, 126, 34)); // Оранжевый #E67E22
+                BtnLogin.Visibility = Visibility.Visible;
             }
-
-            // 3. Если авторизован - меняем кнопку на "Выйти"
-            TxtCurrentUser.Text = $"Пользователь: {Core.AuthUser.FullName}";
-            BtnLogin.Content = "Выйти";
-            BtnLogin.Background = new System.Windows.Media.SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#E74C3C")); // Красный
-
-            // 4. Показываем нужные кнопки в зависимости от роли (названия ролей бери из БД)
-            string role = Core.AuthUser.Roles.Name;
-
-            switch (role)
+            else
             {
-                case "Клиент":
-                    BtnMyRecords.Visibility = Visibility.Visible;
-                    break;
-                case "Мастер":
-                    BtnMasterRecords.Visibility = Visibility.Visible;
-                    break;
-                case "Менеджер":
-                    BtnManagerPanel.Visibility = Visibility.Visible;
-                    break;
-                case "Администратор":
-                    BtnAdminPanel.Visibility = Visibility.Visible;
-                    break;
+                // СОСТОЯНИЕ: АВТОРИЗОВАН
+                TxtCurrentUser.Text = $"Пользователь: {Core.AuthUser.FullName}";
+                BtnLogin.Content = "Выйти из аккаунта";
+                BtnLogin.Background = new SolidColorBrush(Color.FromRgb(231, 76, 60)); // Красный #E74C3C
+                BtnLogin.Visibility = Visibility.Visible;
+
+                // Включаем кнопки по ролям из ТЗ
+                string role = Core.AuthUser.Roles.Name;
+                switch (role)
+                {
+                    case "Клиент":
+                        BtnMyRecords.Visibility = Visibility.Visible;
+                        break;
+                    case "Мастер":
+                        BtnMasterRecords.Visibility = Visibility.Visible;
+                        break;
+                    case "Менеджер":
+                        BtnManagerPanel.Visibility = Visibility.Visible;
+                        break;
+                    case "Администратор":
+                        BtnAdminPanel.Visibility = Visibility.Visible;
+                        break;
+                }
             }
         }
 
         // Обработка кнопки Входа / Выхода
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+
             if (Core.AuthUser == null)
             {
                 // Если не в сети -> идем на страницу авторизации

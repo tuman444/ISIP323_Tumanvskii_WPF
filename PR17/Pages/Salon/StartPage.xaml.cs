@@ -44,6 +44,7 @@ namespace PR17.Pages.Salon
                 CbMaster.Items.Add("Любой мастер");
                 foreach (var m in masters) CbMaster.Items.Add(m.FullName);
                 CbMaster.SelectedIndex = 0;
+
             }
             catch (Exception ex)
             {

@@ -130,6 +130,7 @@
     <Compile Include="Pages\Shop\ProductFullInfoPage.xaml.cs">
       <DependentUpon>ProductFullInfoPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Shop\ProductPartial.cs" />
     <Compile Include="Pages\Shop\ProductsPage.xaml.cs">
       <DependentUpon>ProductsPage.xaml</DependentUpon>
     </Compile>

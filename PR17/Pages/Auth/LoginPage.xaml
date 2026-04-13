@@ -6,9 +6,29 @@
       xmlns:local="clr-namespace:PR17.Pages.Auth"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="LoginPage">
+      Title="Авторизация">
 
-    <Grid>
-        
+    <Grid Background="White">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="300">
+            <TextBlock Text="Вход в систему" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,30" Foreground="#2C3E50"/>
+
+            <TextBlock Text="Номер телефона" Foreground="Gray" Margin="0,0,0,5"/>
+            <TextBox x:Name="TbxPhone" Height="35" VerticalContentAlignment="Center" Margin="0,0,0,15"/>
+
+            <TextBlock Text="Пароль:" Foreground="Gray" Margin="0,0,0,5"/>
+            <PasswordBox x:Name="PbPassword" Height="35" VerticalContentAlignment="Center" Margin="0,0,0,25"/>
+
+            <Button Content="Войти" Height="40" Background="#2C3E50" Foreground="White" 
+                    FontSize="16" Click="BtnLogin_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Назад" Margin="0,15,0,0" Background="Transparent" 
+                    BorderThickness="0" Foreground="Gray" Click="BtnBack_Click"/>
+        </StackPanel>
     </Grid>
 </Page>

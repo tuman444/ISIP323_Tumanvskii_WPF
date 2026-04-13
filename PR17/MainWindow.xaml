@@ -12,40 +12,40 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0" Background="#2C3E50">
-            <TextBlock Text="Космическая Ложа" Foreground="White" FontSize="18" 
-                       FontWeight="Bold" HorizontalAlignment="Center" Margin="10,20"/>
+        <Grid Grid.Column="0" Background="#2C3E50">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
 
-            <Separator Background="#34495E" Margin="10,0,10,10"/>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="Космическая Ложа" Foreground="White" FontSize="18" 
+                           FontWeight="Bold" HorizontalAlignment="Center" Margin="10,20"/>
+                <Separator Background="#34495E" Margin="10,0,10,10"/>
 
-            <Button Content="Главная" Tag="Start" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
-            <Button Content="Магазин" Tag="Shop" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button Content="Главная" Tag="Start" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button Content="Магазин" Tag="Shop" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
 
-            <Button x:Name="BtnMyRecords" Content="Мой кабинет" Tag="Account" 
-                    Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button x:Name="BtnMyRecords" Content="Мой кабинет" Tag="Account" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button x:Name="BtnMasterRecords" Content="Мои смены" Tag="Master" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button x:Name="BtnManagerPanel" Content="Управление салоном" Tag="Manager" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button x:Name="BtnAdminPanel" Content="Пользователи" Tag="Admin" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+            </StackPanel>
 
-            <Button x:Name="BtnMasterRecords" Content="Мои смены" Tag="Master" 
-                    Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
-
-            <Button x:Name="BtnManagerPanel" Content="Управление салоном" Tag="Manager" 
-                    Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
-
-            <Button x:Name="BtnAdminPanel" Content="Пользователи" Tag="Admin" 
-                    Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
-        </StackPanel>
-
-        <StackPanel Grid.Column="0" VerticalAlignment="Bottom" Margin="10">
-            <TextBlock x:Name="TxtCurrentUser" Text="Вы вошли как: Гость" Foreground="LightGray" 
-                       FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="Wrap" TextAlignment="Center"/>
-            <Button x:Name="BtnLogin" Content="Войти в аккаунт" Click="BtnLogin_Click" 
-                    Height="35" Background="#E67E22" Foreground="White" BorderThickness="0">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-        </StackPanel>
+            <StackPanel Grid.Row="1" Margin="10,0,10,20">
+                <Separator Background="#34495E" Margin="0,0,0,10"/>
+                <TextBlock x:Name="TxtCurrentUser" Text="Вы вошли как: Гость" Foreground="LightGray" 
+                           FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="Wrap" TextAlignment="Center"/>
+                <Button x:Name="BtnLogin" Content="Войти в аккаунт" Click="BtnLogin_Click" 
+                        Height="40" Background="#E67E22" Foreground="White" BorderThickness="0">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Grid>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
@@ -63,8 +63,7 @@
                 </Grid>
             </Border>
 
-            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" 
-                   Navigated="MainFrame_Navigated"/>
+            <Frame x:Name="MainFrame" Grid.Row="1" NavigationUIVisibility="Hidden" Navigated="MainFrame_Navigated"/>
         </Grid>
     </Grid>
 </Window>

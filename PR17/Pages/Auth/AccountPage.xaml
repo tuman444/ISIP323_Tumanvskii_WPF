@@ -6,9 +6,44 @@
       xmlns:local="clr-namespace:PR17.Pages.Auth"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="AccountPage">
+      Title="Личный кабинет">
 
-    <Grid>
-        
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Background="White" Margin="20,20,20,10" CornerRadius="10" Padding="15">
+            <StackPanel Orientation="Horizontal">
+                <Ellipse Width="60" Height="60" Fill="#2C3E50"/>
+                <StackPanel Margin="20,0,0,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="TxtUserName" Text="ФИО Пользователя" FontSize="20" FontWeight="Bold"/>
+                    <TextBlock x:Name="TxtUserPhone" Text="+7 (999) 000-00-00" Foreground="Gray"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <GroupBox Header="Мои записи в салон" Grid.Row="1" Margin="20,10" Padding="5">
+            <DataGrid x:Name="DgAppointments" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата и время" Binding="{Binding AppointmentDateTime, StringFormat={}{0:dd.MM.yyyy HH:mm}}" Width="150"/>
+                    <DataGridTextColumn Header="Услуга" Binding="{Binding Services.Name}" Width="*"/>
+                    <DataGridTextColumn Header="Мастер" Binding="{Binding Users1.FullName}" Width="*"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
+
+        <GroupBox Header="Мои заказы товаров" Grid.Row="2" Margin="20,10" Padding="5">
+            <DataGrid x:Name="DgOrders" AutoGenerateColumns="False" IsReadOnly="True" GridLinesVisibility="Horizontal">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№ Заказа" Binding="{Binding Id}" Width="70"/>
+                    <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat={}{0:dd.MM.yyyy}}" Width="120"/>
+                    <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </GroupBox>
     </Grid>
 </Page>
