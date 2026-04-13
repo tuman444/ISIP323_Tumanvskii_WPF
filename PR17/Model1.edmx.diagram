@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3f609e82562e47f38893908c6068f57a" Name="Diagram1" ZoomLevel="53">
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Appointments" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Manufacturers" Width="1.5" PointX="3" PointY="12" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.OrderItems" Width="1.5" PointX="7.5" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Orders" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Products" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.ProductTypes" Width="1.5" PointX="3" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Roles" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Services" Width="1.5" PointX="8.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.ServiceTypes" Width="1.5" PointX="6" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="TheCosmicLodgeModel.Users" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Appointme__Clien__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Appointme__Maste__6754599E" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Appointme__Servi__68487DD7" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Products__Manufa__74AE54BC" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__OrderItem__Order__7D439ABD" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__OrderItem__Produ__7E37BEF6" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Orders__ClientId__797309D9" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Products__Produc__73BA3083" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Users__RoleId__59FA5E80" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.FK__Services__Servic__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="TheCosmicLodgeModel.MasterServices" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

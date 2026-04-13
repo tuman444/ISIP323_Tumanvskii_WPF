@@ -1,0 +1,51 @@
+﻿<Page x:Class="PR17.Pages.Salon.AppointmentPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PR17.Pages.Salon"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Запись на услуги">
+
+    <Grid Background="White">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="350">
+            <TextBlock Text="Оформление записи" FontSize="24" FontWeight="Bold" Margin="0,0,0,15" HorizontalAlignment="Center"/>
+
+            <TextBlock Text="Выбранная услуга:" Foreground="Gray"/>
+            <TextBlock x:Name="TxtServiceName" FontSize="18" Margin="0,0,0,10" TextWrapping="Wrap"/>
+
+            <TextBlock Text="Выберите мастера:" Foreground="Gray"/>
+            <ComboBox x:Name="CbMaster" Margin="0,0,0,10" DisplayMemberPath="FullName"/>
+
+            <TextBlock Text="Выберите дату:" Foreground="Gray"/>
+            <DatePicker x:Name="DpDate" Margin="0,0,0,10"/>
+
+            <TextBlock Text="Выберите время:" Foreground="Gray"/>
+            <ComboBox x:Name="CbTime" Margin="0,0,0,10">
+                <TextBlock>10:00</TextBlock>
+                <TextBlock>12:00</TextBlock>
+                <TextBlock>14:00</TextBlock>
+                <TextBlock>16:00</TextBlock>
+                <TextBlock>18:00</TextBlock>
+            </ComboBox>
+
+            <TextBlock Text="Способ оплаты:" Foreground="Gray"/>
+            <ComboBox x:Name="CbPayment" Margin="0,0,0,10">
+                <TextBlock>Наличные</TextBlock>
+                <TextBlock>Карта</TextBlock>
+            </ComboBox>
+
+            <TextBlock Text="Комментарий:" Foreground="Gray"/>
+            <TextBox x:Name="TbxComment" Height="60" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,15"/>
+
+            <Button Content="Подтвердить запись" Height="40" Background="#2C3E50" Foreground="White" Click="BtnConfirm_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>
