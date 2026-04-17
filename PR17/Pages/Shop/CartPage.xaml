@@ -6,9 +6,67 @@
       xmlns:local="clr-namespace:PR17.Pages.Shop"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="CartPage">
+      Title="Корзина">
 
-    <Grid>
-        
+    <Grid Background="Transparent">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="350"/>
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="LBoxCart" Grid.Column="0" Margin="10" Background="Transparent" BorderThickness="0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Background="#2C3E50" CornerRadius="8" Margin="0,0,0,10" Padding="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{Binding ImagePath}" Height="60" Stretch="Uniform"/>
+
+                            <StackPanel Grid.Column="1" Margin="15,0">
+                                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                                <TextBlock Text="{Binding Manufacturers.Name}" Foreground="White"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₽}" FontSize="16" VerticalAlignment="Center" Foreground="White"/>
+                                <Button Content="✕" Click="BtnRemove_Click" Tag="{Binding}" Margin="15,0,0,0" 
+                                        Background="Transparent" Foreground="Red" BorderThickness="0" FontWeight="Bold"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Border Grid.Column="1" Background="#2C3E50" Margin="10" CornerRadius="10" Padding="20" VerticalAlignment="Top">
+            <StackPanel>
+                <TextBlock Text="Ваш заказ" FontSize="20" FontWeight="Bold" Margin="0,0,0,20" Foreground="White"/>
+
+                <DockPanel Margin="0,5">
+                    <TextBlock Text="Товары:" Foreground="White"/>
+                    <TextBlock x:Name="TxtTotalCount" DockPanel.Dock="Right" HorizontalAlignment="Right" FontWeight="SemiBold" Foreground="White"/>
+                </DockPanel>
+
+                <DockPanel Margin="0,5">
+                    <TextBlock Text="Сумма скидки:" Foreground="White"/>
+                    <TextBlock x:Name="TxtTotalDiscount" DockPanel.Dock="Right" HorizontalAlignment="Right" Foreground="White" FontWeight="SemiBold"/>
+                </DockPanel>
+
+                <Separator Margin="0,15"/>
+
+                <DockPanel>
+                    <TextBlock Text="Итого:" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                    <TextBlock x:Name="TxtFinalPrice" DockPanel.Dock="Right" HorizontalAlignment="Right" FontSize="18" FontWeight="Bold" Foreground="White"/>
+                </DockPanel>
+
+                <Button Content="Оформить заказ" Margin="0,30,0,0" Height="45" Background="#E67E22" 
+                        Foreground="White" FontWeight="Bold" BorderThickness="0" Click="BtnOrder_Click"/>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

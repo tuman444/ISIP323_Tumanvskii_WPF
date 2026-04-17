@@ -49,6 +49,9 @@ namespace PR17
                     case "Shop":
                         MainFrame.Navigate(new Pages.Shop.ProductsPage());
                         break;
+                    case "Cart":
+                        MainFrame.Navigate(new Pages.Shop.CartPage());
+                        break;
                     case "Account":
                         MainFrame.Navigate(new Pages.Auth.AccountPage()); // Раскомментируй, когда создашь страницу
                         break;
@@ -59,7 +62,7 @@ namespace PR17
                         // MainFrame.Navigate(new Pages.Manager.ManagerPage());
                         break;
                     case "Admin":
-                        // MainFrame.Navigate(new Pages.Admin.AdminPage());
+                        MainFrame.Navigate(new Pages.Admin.AdminPage());
                         break;
                 }
             }

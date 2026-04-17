@@ -22,6 +22,7 @@ namespace PR17
             return _db;
         }
 
-        public static Users AuthUser = null; 
+        public static Users AuthUser = null;
+        public static List<Products> SelectedProducts = new List<Products>();
     }
 }

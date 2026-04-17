@@ -25,6 +25,7 @@
 
                 <Button Content="Главная" Tag="Start" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
                 <Button Content="Магазин" Tag="Shop" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button Content="Корзина" Tag="Cart" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
 
                 <Button x:Name="BtnMyRecords" Content="Мой кабинет" Tag="Account" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
                 <Button x:Name="BtnMasterRecords" Content="Мои смены" Tag="Master" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>

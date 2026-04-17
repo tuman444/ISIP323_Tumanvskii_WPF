@@ -76,11 +76,11 @@ namespace PR17.Pages.Shop
 
         private void BtnAddToCart_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button).Tag is PR17.Products product)
+            if ((sender as Button).Tag is Products product)
             {
-                MessageBox.Show($"Товар '{product.Name}' добавлен в корзину!");
+                Core.SelectedProducts.Add(product);
+                MessageBox.Show($"Товар '{product.Name}' добавлен!");
             }
         }
-
     }
 }
