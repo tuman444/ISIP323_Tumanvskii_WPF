@@ -36,14 +36,14 @@ namespace PR17.Pages.Admin
 
         private void BtnAddUser_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new Pages.Admin.EditUserPage(null));
+            NavigationService.Navigate(new Pages.Admin.EditUserPage(null));
         }
 
         private void BtnEditUser_Click(object sender, RoutedEventArgs e)
         {
             if((sender as Button).Tag is Users selectedUser)
             {
-                //NavigationService.Navigate(new Pages.Admin.EditUserPage(selectedUser));
+                NavigationService.Navigate(new Pages.Admin.EditUserPage(selectedUser));
             }
         }
 

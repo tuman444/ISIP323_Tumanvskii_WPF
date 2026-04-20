@@ -6,9 +6,31 @@
       xmlns:local="clr-namespace:PR17.Pages.Admin"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="EditUserPage">
+      Title="Редактирование и создание пользователя">
 
-    <Grid>
-        
+    <Grid Background="#F8F9FA">
+        <Border Background="#2C3E50" CornerRadius="15" Padding="15" Margin="25" VerticalAlignment="Center" HorizontalAlignment="Center" Width="400"
+                BorderBrush="#DEE2E6" BorderThickness="1">
+            <StackPanel>
+                <TextBlock x:Name="TxtTitle" Text="Пользователь" FontSize="22" FontWeight="Bold" Margin="0,0,0,10" HorizontalAlignment="Center" Foreground="White"/>
+
+                <TextBlock Text="ФИО / Имя:"  Foreground="White" Margin="0,0,0,5" />
+                <TextBox x:Name="TbxName" Height="35" Margin="0,0,0,5" VerticalContentAlignment="Center"/>
+
+                <TextBlock Text="Номер телефона:"  Foreground="White" Margin="0,0,0,5"/>
+                <TextBox x:Name="TbxLogin" Height="35" Margin="0,0,0,5" VerticalContentAlignment="Center"/>
+
+                <TextBlock Text="Пароль:" Foreground="White" Margin="0,0,0,5"/>
+                <TextBox x:Name="TbxPassword" Height="35" Margin="0,0,0,5" VerticalContentAlignment="Center"/>
+
+                <TextBlock Text="Роль:"  Foreground="White" Margin="0,0,0,5"/>
+                <ComboBox x:Name="ComboRole" Height="35" Margin="0,0,0,20" DisplayMemberPath="Name" VerticalContentAlignment="Center"/>
+
+                <UniformGrid Columns="2">
+                    <Button Content="Отмена" Height="40" Margin="0,0,5,0" Background="#BDC3C7" Foreground="White" BorderThickness="0" Click="BtnCancel_Click"/>
+                    <Button Content="Сохранить" Height="40" Margin="5,0,0,0" Background="#E67E22" Foreground="White" BorderThickness="0" FontWeight="Bold" Click="BtnSave_Click"/>
+                </UniformGrid>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

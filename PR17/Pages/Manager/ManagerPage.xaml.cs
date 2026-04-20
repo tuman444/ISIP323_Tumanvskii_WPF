@@ -24,5 +24,47 @@ namespace PR17.Pages.Manager
         {
             InitializeComponent();
         }
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                // Обновляем список из БД
+                DGridProducts.ItemsSource = Core.DB.Products.ToList();
+            }
+        }
+
+        private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
+        {
+            // Переход на страницу редактирования товара
+            //NavigationService.Navigate(new Pages.Manager.EditProductPage(null));
+        }
+
+        private void BtnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button).Tag is Products selectedProduct)
+            {
+                //NavigationService.Navigate(new Pages.Manager.EditProductPage(selectedProduct));
+            }
+        }
+
+        private void BtnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            var product = (sender as Button).Tag as Products;
+
+            if (MessageBox.Show($"Удалить товар {product.Name}?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Core.DB.Products.Remove(product);
+                    Core.DB.SaveChanges();
+                    DGridProducts.ItemsSource = Core.DB.Products.ToList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ошибка при удалении: " + ex.Message);
+                }
+            }
+        }
     }
 }

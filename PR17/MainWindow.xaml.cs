@@ -59,7 +59,7 @@ namespace PR17
                         // MainFrame.Navigate(new Pages.Master.MasterPage());
                         break;
                     case "Manager":
-                        // MainFrame.Navigate(new Pages.Manager.ManagerPage());
+                        MainFrame.Navigate(new Pages.Manager.ManagerPage());
                         break;
                     case "Admin":
                         MainFrame.Navigate(new Pages.Admin.AdminPage());
