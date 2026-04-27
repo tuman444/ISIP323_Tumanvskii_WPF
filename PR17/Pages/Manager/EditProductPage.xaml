@@ -8,7 +8,43 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="EditProductPage">
 
-    <Grid>
-        
+    <Grid Background="white">
+        <Border Background="#2C3E50" CornerRadius="10" Padding="25" Margin="30" VerticalAlignment="Top" HorizontalAlignment="Center" Width="500" 
+                BorderBrush="#DEE2E6" BorderThickness="1">
+            <StackPanel>
+                <TextBlock x:Name="TxtTitle" Text="Карточка товара" FontSize="20" FontWeight="Bold" Margin="0,0,0,10" Foreground="White"/>
+
+                <StackPanel Grid.Column="0">
+                        <TextBlock Text="Название" Foreground="White"/>
+                        <TextBox x:Name="TbxName" Margin="0,5,0,2" Height="30"/>
+
+                        <TextBlock Text="Производитель" Foreground="White"/>
+                        <ComboBox x:Name="ComboManuf" Margin="0,5,0,2" Height="30" DisplayMemberPath="Name"/>
+                    
+                        <TextBlock Text="Тип продукта" Foreground="White"/>
+                        <ComboBox x:Name="ComboProductType" Margin="0,5,0,2" Height="30" DisplayMemberPath="Name"/>
+
+                    <UniformGrid Columns="2">
+                            <StackPanel Margin="0,0,5,0">
+                                <TextBlock Text="Цена:" Foreground="White"/>
+                                <TextBox x:Name="TbxPrice" Margin="0,5,0,10" Height="30"/>
+                            </StackPanel>
+                            <StackPanel Margin="5,0,0,0">
+                                <TextBlock Text="Скидка (%):" Foreground="White"/>
+                                <TextBox x:Name="TbxDiscount" Margin="0,5,0,10" Height="30"/>
+                            </StackPanel>
+                        </UniformGrid>
+                    <CheckBox x:Name="CbIsFrozen" Content="Заморозить (снять с продажи)" 
+                        Foreground="White" Margin="0,0,0,0"/>
+                    </StackPanel>
+
+
+                <UniformGrid Columns="2" Margin="0,20,0,0">
+                    <Button Content="Отмена" Height="35" Margin="0,0,5,0" Click="BtnCancel_Click" Foreground="White" Background="#C96F1A"/>
+                    <Button Content="Сохранить" Height="35" Margin="5,0,0,0" Background="#E67E22" 
+                            Foreground="White" FontWeight="Bold" Click="BtnSave_Click"/>
+                </UniformGrid>
+            </StackPanel>
+        </Border>
     </Grid>
 </Page>

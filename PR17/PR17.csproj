@@ -79,7 +79,10 @@
     <Compile Include="Pages\Manager\EditProductPage.xaml.cs">
       <DependentUpon>EditProductPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Manager\SchedulePage.xaml.cs">
+    <Compile Include="Pages\Master\MasterServicesPage.xaml.cs">
+      <DependentUpon>MasterServicesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Master\SchedulePage.xaml.cs">
       <DependentUpon>SchedulePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Manufacturers.cs">
@@ -109,7 +112,7 @@
     <Compile Include="Pages\Admin\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\Salon\AppointmentDetailsPage.xaml.cs">
+    <Compile Include="Pages\Master\AppointmentDetailsPage.xaml.cs">
       <DependentUpon>AppointmentDetailsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Salon\AppointmentPage.xaml.cs">
@@ -120,12 +123,6 @@
     </Compile>
     <Compile Include="Pages\Manager\ManagerPage.xaml.cs">
       <DependentUpon>ManagerPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Master\MasterPage.xaml.cs">
-      <DependentUpon>MasterPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Shop\OrderWindow.xaml.cs">
-      <DependentUpon>OrderWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Shop\ProductFullInfoPage.xaml.cs">
       <DependentUpon>ProductFullInfoPage.xaml</DependentUpon>
@@ -187,11 +184,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Salon\AppointmentDetailsPage.xaml">
+    <Page Include="Pages\Master\AppointmentDetailsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\Manager\SchedulePage.xaml">
+    <Page Include="Pages\Master\MasterServicesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Master\SchedulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -204,14 +205,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Manager\ManagerPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Master\MasterPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\Shop\OrderWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

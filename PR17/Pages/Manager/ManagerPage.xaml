@@ -10,69 +10,94 @@
       Title="Странница менеджера">
 
     <Grid Background="#F8F9FA" Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+        <TabControl Background="Transparent" BorderThickness="0">
+            <TabItem Header="Товары" FontSize="14">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-        <Border Grid.Row="0" Background="#2C3E50" CornerRadius="8" Padding="15" Margin="0,0,0,15">
-            <DockPanel>
-                <TextBlock Text="Список товаров" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" Foreground="White"/>
-                <Button Content="+ Добавить товар" DockPanel.Dock="Right" HorizontalAlignment="Right" Width="160" Height="35" 
-                        Background="#E67E22" Foreground="White" BorderThickness="0" FontWeight="Bold" />
-            </DockPanel>
-        </Border>
+                    <Border Background="#2C3E50" CornerRadius="8" Padding="15" Margin="0,0,0,10">
+                        <DockPanel>
+                            <TextBlock Text="Управление товарами" FontSize="18" Foreground="White" VerticalAlignment="Center"/>
+                            <Button Content="+ Добавить товар" HorizontalAlignment="Right" Width="150" Height="30" 
+                                    Background="#E67E22" Foreground="White" BorderThickness="0" Click="Button_Click"/>
+                        </DockPanel>
+                    </Border>
 
-        <DataGrid x:Name="DGridProducts" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Background="White" 
-                  HeadersVisibility="Column" RowHeight="50">
+                    <DataGrid x:Name="DGridProducts" Grid.Row="1" AutoGenerateColumns="False" IsReadOnly="True" Background="White">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="40"/>
+                            <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
+                            <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:N2} ₽}" Width="100"/>
+                            <DataGridCheckBoxColumn Header="Заморозка" Binding="{Binding IsFrozen}" Width="80"/>
+                            <DataGridTemplateColumn Header="Действия" Width="180">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Изменить" Width="80" Margin="2" Background="#3498DB" Foreground="White" Click="BtnEdit_Click" Tag="{Binding}"/>
+                                            <Button Content="Удалить" Width="80" Margin="2" Background="#E74C3C" Foreground="White" Click="BtnDelete_Click" Tag="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
 
-            <DataGrid.Resources>
-                <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background" Value="#2C3E50"/>
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Padding" Value="10,5"/>
-                    <Setter Property="FontWeight" Value="SemiBold"/>
-                </Style>
-                <Style TargetType="DataGridRow">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#F8F9FA"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="50"/>
+            <TabItem Header="Записи" FontSize="14" >
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
 
-                <DataGridTemplateColumn Header="Фото" Width="70">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding ImagePath}" Height="40" Stretch="Uniform"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                
-                <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Тип" Binding="{Binding ProductTypes.Name}" Width="120"/>
-                <DataGridTextColumn Header="Производитель" Binding="{Binding Manufacturers.Name}" Width="150"/>
-                <DataGridTextColumn Header="Цена" Binding="{Binding Price, StringFormat={}{0:N2} ₽}" Width="100"/>
-                <DataGridTextColumn Header="Скидка" Binding="{Binding DiscountPercentage, StringFormat={}{0}%}" Width="80"/>
+                    <Border Background="#2C3E50" CornerRadius="8" Padding="10">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Поиск (ФИО/Тел):" Foreground="White" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                            <TextBox x:Name="TbxSearchClient" Width="250" Height="25" TextChanged="TbxSearchClient_TextChanged"/>
+                        </StackPanel>
+                    </Border>
 
-                <DataGridTemplateColumn Header="Действия" Width="180">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button Content="Изменить" Width="85" Height="25" Margin="0,0,5,0" 
-                                        Background="#3498DB" Foreground="White" BorderThickness="0"
-                                        Click="BtnEdit_Click" Tag="{Binding}"/>
-                                <Button Content="Удалить" Width="65" Height="25" 
-                                        Background="#E74C3C" Foreground="White" BorderThickness="0"
-                                        Click="BtnDelete_Click" Tag="{Binding}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+                    <DataGrid x:Name="DGridAppointments" Grid.Row="1" Margin="0,10,0,0" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Дата/Время" Binding="{Binding AppointmentDateTime, StringFormat={}{0:dd.MM HH:mm}}" Width="120"/>
+                            <DataGridTextColumn Header="Клиент" Binding="{Binding Users.FullName}" Width="*"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="100"/>
+                            <DataGridTemplateColumn Width="180">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Content="Перенести" Margin="2" Click="BtnReschedule_Click" Tag="{Binding}"/>
+                                            <Button Content="Отмена" Margin="2" Background="#E74C3C" Foreground="White" Click="BtnCancelApp_Click" Tag="{Binding}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Заказы" FontSize="14" >
+                <DataGrid x:Name="DGridOrders" Margin="0,10,0,0" AutoGenerateColumns="False" IsReadOnly="True">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№" Binding="{Binding Id}" Width="50"/>
+                        <DataGridTextColumn Header="Дата" Binding="{Binding OrderDate, StringFormat={}{0:dd.MM.yyyy}}" Width="100"/>
+                        <DataGridTextColumn Header="Клиент" Binding="{Binding Users.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Статус" Binding="{Binding Status}" Width="120"/>
+                        <DataGridTemplateColumn Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Выдать" Background="#E67E22" Foreground="White" Click="BtnDeliverOrder_Click" Tag="{Binding}"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

@@ -56,7 +56,7 @@ namespace PR17.Pages.Auth
                         NavigationService.Navigate(new Manager.ManagerPage());
                         break;
                     case "Мастер":
-                        NavigationService.Navigate(new Master.MasterPage());
+                        NavigationService.Navigate(new Master.SchedulePage());
                         break;
                     case "Клиент":
                         NavigationService.Navigate(new Salon.StartPage());

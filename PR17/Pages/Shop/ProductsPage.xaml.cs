@@ -82,5 +82,14 @@ namespace PR17.Pages.Shop
                 MessageBox.Show($"Товар '{product.Name}' добавлен!");
             }
         }
+        private void LBoxProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            // Проверяем, что в списке реально что-то выбрано
+            if (LBoxProducts.SelectedItem is Products selectedProduct)
+            {
+                // Переходим на страницу деталей, как ты делал раньше
+                NavigationService.Navigate(new Pages.Shop.ProductFullInfoPage(selectedProduct));
+            }
+        }
     }
 }

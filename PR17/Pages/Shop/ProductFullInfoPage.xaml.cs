@@ -20,9 +20,23 @@ namespace PR17.Pages.Shop
     /// </summary>
     public partial class ProductFullInfoPage : Page
     {
-        public ProductFullInfoPage()
+        private Products _currentProduct;
+        public ProductFullInfoPage(Products selectedProduct)
         {
             InitializeComponent();
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Данные о товаре не найдены");
+                if (NavigationService.CanGoBack) NavigationService.GoBack();
+                return;
+            }
+
+            // Привязываем данные из таблицы Products
+            this.DataContext = selectedProduct;
+        }
+        private void BtnBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack(); 
         }
     }
 }

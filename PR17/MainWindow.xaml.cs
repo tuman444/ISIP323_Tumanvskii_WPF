@@ -53,10 +53,10 @@ namespace PR17
                         MainFrame.Navigate(new Pages.Shop.CartPage());
                         break;
                     case "Account":
-                        MainFrame.Navigate(new Pages.Auth.AccountPage()); // Раскомментируй, когда создашь страницу
+                        MainFrame.Navigate(new Pages.Auth.AccountPage()); 
                         break;
                     case "Master":
-                        // MainFrame.Navigate(new Pages.Master.MasterPage());
+                         MainFrame.Navigate(new Pages.Master.SchedulePage());
                         break;
                     case "Manager":
                         MainFrame.Navigate(new Pages.Manager.ManagerPage());

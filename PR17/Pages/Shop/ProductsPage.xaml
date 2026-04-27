@@ -46,6 +46,7 @@
 
         <ListBox x:Name="LBoxProducts" Grid.Row="1" 
          d:ItemsSource="{d:SampleData ItemCount=6}"
+         MouseDoubleClick="LBoxProducts_MouseDoubleClick"
          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
          BorderThickness="0" Background="Transparent" Padding="10">
 
@@ -57,32 +58,30 @@
 
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Border x:Name="ProductBorder" Background="White" BorderBrush="#DEE2E6" 
+                    <Border x:Name="ProductBorder" Background="#2C3E50" BorderBrush="#DEE2E6" 
                     BorderThickness="1" CornerRadius="10" Margin="10" Padding="15" 
-                    Width="280" MinHeight="400">
+                    Width="280" MinHeight="170">
 
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="150"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
+                            
 
-                            <Image Grid.Row="0" Source="{Binding ImagePath}" Margin="0,0,0,10" Stretch="Uniform"/>
-
-                            <TextBlock Grid.Row="1" Text="{Binding Name}" FontSize="15" FontWeight="Bold" 
+                            <TextBlock Grid.Row="0" Text="{Binding Name}" FontSize="15" FontWeight="Bold" Foreground="White"
                                TextWrapping="Wrap" Margin="0,0,0,5"/>
 
-                            <TextBlock Grid.Row="2" Text="{Binding Manufacturers.Name}" Foreground="Gray" FontSize="12"/>
+                            <TextBlock Grid.Row="1" Text="{Binding Manufacturers.Name}" FontSize="12" Foreground="White"/>
 
-                            <StackPanel Grid.Row="4">
+                            <StackPanel Grid.Row="2">
                                 <Separator Background="#F1F3F5" Margin="0,10"/>
 
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,10">
                                     <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₽}" FontSize="18" 
-                                       FontWeight="SemiBold" Foreground="#2C3E50"/>
+                                       FontWeight="SemiBold" Foreground="White"/>
 
                                     <Border x:Name="DiscountLabel" Background="#FFF0F0" CornerRadius="4" Margin="8,0,0,0" Padding="4,2">
                                         <TextBlock Text="{Binding DiscountPercentage, StringFormat=-{0}%}" 
@@ -90,8 +89,8 @@
                                     </Border>
                                 </StackPanel>
 
-                                <Button Content="В корзину" Height="35" Background="#3498DB" Foreground="White" 
-                                BorderThickness="0" Click="BtnAddToCart_Click" Tag="{Binding}">
+                                <Button Content="В корзину" Height="35" Background="#E67E22" Foreground="White" 
+                                BorderThickness="0" Click="BtnAddToCart_Click" Tag="{Binding}" >
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="4"/>
@@ -104,7 +103,7 @@
 
                     <DataTemplate.Triggers>
                         <DataTrigger Binding="{Binding IsHighDiscount}" Value="True">
-                            <Setter TargetName="ProductBorder" Property="Background" Value="#E8F5E9"/>
+                            <Setter TargetName="ProductBorder" Property="Background" Value="#3a61d4"/>
                             <Setter TargetName="ProductBorder" Property="BorderBrush" Value="#C8E6C9"/>
                         </DataTrigger>
                         <DataTrigger Binding="{Binding DiscountPercentage}" Value="0">

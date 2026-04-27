@@ -28,42 +28,73 @@ namespace PR17.Pages.Manager
         {
             if (Visibility == Visibility.Visible)
             {
-                // Обновляем список из БД
-                DGridProducts.ItemsSource = Core.DB.Products.ToList();
+                RefreshData();
             }
         }
 
-        private void BtnAddProduct_Click(object sender, RoutedEventArgs e)
+        private void RefreshData()
         {
-            // Переход на страницу редактирования товара
-            //NavigationService.Navigate(new Pages.Manager.EditProductPage(null));
+            // Сброс кэша для актуальных данных
+            var context = Core.DB;
+            DGridProducts.ItemsSource = context.Products.ToList();
+            DGridAppointments.ItemsSource = context.Appointments.OrderByDescending(a => a.AppointmentDateTime).ToList();
+            DGridOrders.ItemsSource = context.Orders.OrderByDescending(o => o.OrderDate).ToList();
         }
+
+        // --- ТОВАРЫ ---
+        private void Button_Click(object sender, RoutedEventArgs e) => NavigationService.Navigate(new EditProductPage(null));
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button).Tag is Products selectedProduct)
-            {
-                //NavigationService.Navigate(new Pages.Manager.EditProductPage(selectedProduct));
-            }
+            if ((sender as Button).Tag is Products product)
+                NavigationService.Navigate(new EditProductPage(product));
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
-            var product = (sender as Button).Tag as Products;
-
-            if (MessageBox.Show($"Удалить товар {product.Name}?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+            if ((sender as Button).Tag is Products product)
             {
-                try
+                if (MessageBox.Show($"Удалить {product.Name}?", "Вопрос", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     Core.DB.Products.Remove(product);
                     Core.DB.SaveChanges();
-                    DGridProducts.ItemsSource = Core.DB.Products.ToList();
+                    RefreshData();
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Ошибка при удалении: " + ex.Message);
-                }
+            }
+        }
+
+        // --- ЗАПИСИ ---
+        private void TbxSearchClient_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var search = TbxSearchClient.Text.ToLower();
+            DGridAppointments.ItemsSource = Core.DB.Appointments
+                .Where(a => a.Users.FullName.ToLower().Contains(search) || a.Users.Phone.Contains(search))
+                .ToList();
+        }
+
+        private void BtnCancelApp_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button).Tag is Appointments app)
+            {
+                app.Status = "Отменена";
+                Core.DB.SaveChanges();
+                RefreshData();
+            }
+        }
+
+        private void BtnReschedule_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Функция переноса даты в разработке...");
+        }
+
+        // --- ЗАКАЗЫ ---
+        private void BtnDeliverOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button).Tag is Orders order)
+            {
+                order.Status = "Выдан";
+                Core.DB.SaveChanges();
+                RefreshData();
             }
         }
     }
