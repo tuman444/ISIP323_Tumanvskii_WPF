@@ -76,6 +76,12 @@ namespace PR17.Pages.Shop
 
         private void BtnAddToCart_Click(object sender, RoutedEventArgs e)
         {
+            if (Core.AuthUser == null)
+            {
+                MessageBox.Show("Для оформления заказа необходимо авторизоваться в системе!",
+                                "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             if ((sender as Button).Tag is Products product)
             {
                 Core.SelectedProducts.Add(product);

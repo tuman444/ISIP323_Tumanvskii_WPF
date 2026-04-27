@@ -24,6 +24,5 @@ namespace PR17
 
         public static Users AuthUser = null;
         public static List<Products> SelectedProducts = new List<Products>();
-        public static Users CurrentUser { get; set; }
     }
 }

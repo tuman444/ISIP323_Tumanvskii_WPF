@@ -86,6 +86,12 @@ namespace PR17.Pages.Salon
 
         private void BtnSelect_Click(object sender, RoutedEventArgs e)
         {
+            if (Core.AuthUser == null)
+            {
+                MessageBox.Show("Для записи на услугу необходимо авторизоваться в системе!",
+                                "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
             if (sender is Button btn && btn.Tag is int id)
             {
                 MessageBox.Show($"Услуга ID {id} выбрана. Переходим к записи!");

@@ -43,7 +43,7 @@ namespace PR17.Pages.Shop
                 // 1. Создаем объект заказа на основе вашей таблицы
                 Orders newOrder = new Orders
                 {
-                    ClientId = Core.CurrentUser.Id, // ID текущего клиента
+                    ClientId = Core.AuthUser.Id, // ID текущего клиента
                     OrderDate = DateTime.Now,        // Дата оформления
                     DeliveryDate = DpDeliveryDate.SelectedDate.Value,
                     PaymentMethod = (CmbPayment.SelectedItem as ComboBoxItem).Content.ToString(),

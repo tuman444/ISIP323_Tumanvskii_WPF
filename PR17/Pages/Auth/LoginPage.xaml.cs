@@ -42,7 +42,6 @@ namespace PR17.Pages.Auth
 
             if (user != null)
             {
-                
                 Core.AuthUser = user; // Запоминаем пользователя
                 MessageBox.Show($"Добро пожаловать, {user.FullName}!");
 

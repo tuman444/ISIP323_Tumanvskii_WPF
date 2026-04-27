@@ -103,14 +103,17 @@ namespace PR17
                 BtnLogin.Content = "Войти в аккаунт";
                 BtnLogin.Background = new SolidColorBrush(Color.FromRgb(230, 126, 34)); // Оранжевый #E67E22
                 BtnLogin.Visibility = Visibility.Visible;
+                BtnCart.Visibility = Visibility.Collapsed;
             }
             else
             {
                 // СОСТОЯНИЕ: АВТОРИЗОВАН
                 TxtCurrentUser.Text = $"Пользователь: {Core.AuthUser.FullName}";
+                TxtUserRole.Text = Core.AuthUser.Roles.Name;
                 BtnLogin.Content = "Выйти из аккаунта";
                 BtnLogin.Background = new SolidColorBrush(Color.FromRgb(231, 76, 60)); // Красный #E74C3C
                 BtnLogin.Visibility = Visibility.Visible;
+                BtnCart.Visibility = Visibility.Visible;
 
                 // Включаем кнопки по ролям из ТЗ
                 string role = Core.AuthUser.Roles.Name;
@@ -149,7 +152,7 @@ namespace PR17
                 {
                     Core.AuthUser = null; // Очищаем сессию
                     CheckRolePermissions(); // Обновляем меню
-
+                    TxtUserRole.Text = string.Empty;
                     // Очищаем историю фрейма, чтобы нельзя было нажать "Назад" в закрытый профиль
                     while (MainFrame.CanGoBack) { MainFrame.RemoveBackEntry(); }
 

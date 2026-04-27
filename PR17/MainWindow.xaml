@@ -25,7 +25,7 @@
 
                 <Button Content="Главная" Tag="Start" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
                 <Button Content="Магазин" Tag="Shop" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
-                <Button Content="Корзина" Tag="Cart" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
+                <Button Content="Корзина" x:Name="BtnCart" Tag="Cart" Click="Navigating" Height="40" Background="Transparent" Foreground="White" BorderThickness="0" />
 
                 <Button x:Name="BtnMyRecords" Content="Мой кабинет" Tag="Account" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
                 <Button x:Name="BtnMasterRecords" Content="Мои смены" Tag="Master" Click="Navigating" Visibility="Collapsed" Height="40" Background="Transparent" Foreground="White" BorderThickness="0"/>
@@ -35,8 +35,13 @@
 
             <StackPanel Grid.Row="1" Margin="10,0,10,20">
                 <Separator Background="#34495E" Margin="0,0,0,10"/>
-                <TextBlock x:Name="TxtCurrentUser" Text="Вы вошли как: Гость" Foreground="LightGray" 
-                           FontSize="12" HorizontalAlignment="Center" Margin="0,0,0,10" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock x:Name="TxtCurrentUser" Text="Вы вошли как: Гость" Foreground="White" 
+                           FontSize="12" HorizontalAlignment="Left" Margin="0,0,0,10" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock Text="Ваши права доступа: " Foreground="White"/>
+                <Border Background="#E67E22" CornerRadius="5" Padding="5,2" Margin="5,10">
+                    <TextBlock x:Name="TxtUserRole" Foreground="White" FontSize="12" VerticalAlignment="Center"/>
+                </Border>
+
                 <Button x:Name="BtnLogin" Content="Войти в аккаунт" Click="BtnLogin_Click" 
                         Height="40" Background="#E67E22" Foreground="White" BorderThickness="0">
                     <Button.Resources>
