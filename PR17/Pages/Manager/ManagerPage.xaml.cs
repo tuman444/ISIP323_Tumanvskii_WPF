@@ -1,29 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PR17.Pages.Manager
 {
-    /// <summary>
-    /// Логика взаимодействия для ManagerPage.xaml
-    /// </summary>
     public partial class ManagerPage : Page
     {
         public ManagerPage()
         {
             InitializeComponent();
         }
+
         private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (Visibility == Visibility.Visible)
@@ -34,11 +23,12 @@ namespace PR17.Pages.Manager
 
         private void RefreshData()
         {
-            // Сброс кэша для актуальных данных
-            var context = Core.DB;
-            DGridProducts.ItemsSource = context.Products.ToList();
-            DGridAppointments.ItemsSource = context.Appointments.OrderByDescending(a => a.AppointmentDateTime).ToList();
-            DGridOrders.ItemsSource = context.Orders.OrderByDescending(o => o.OrderDate).ToList();
+            // Обновляем контекст, чтобы подтянуть изменения из базы
+            var db = Core.DB;
+            DGridProducts.ItemsSource = db.Products.ToList();
+            DGridAppointments.ItemsSource = db.Appointments.ToList();
+            DGridOrders.ItemsSource = db.Orders.ToList();
+            DGridServiceTypes.ItemsSource = db.ProductTypes.ToList();
         }
 
         // --- ТОВАРЫ ---
@@ -46,15 +36,15 @@ namespace PR17.Pages.Manager
 
         private void BtnEdit_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button).Tag is Products product)
-                NavigationService.Navigate(new EditProductPage(product));
+            if ((sender as Button).Tag is Products selected)
+                NavigationService.Navigate(new EditProductPage(selected));
         }
 
         private void BtnDelete_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button).Tag is Products product)
             {
-                if (MessageBox.Show($"Удалить {product.Name}?", "Вопрос", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Удалить {product.Name}?", "Внимание", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     Core.DB.Products.Remove(product);
                     Core.DB.SaveChanges();
@@ -63,7 +53,7 @@ namespace PR17.Pages.Manager
             }
         }
 
-        // --- ЗАПИСИ ---
+        // --- ЗАПИСИ (Поиск по ФИО/Телефону) ---
         private void TbxSearchClient_TextChanged(object sender, TextChangedEventArgs e)
         {
             var search = TbxSearchClient.Text.ToLower();
@@ -72,22 +62,42 @@ namespace PR17.Pages.Manager
                 .ToList();
         }
 
-        private void BtnCancelApp_Click(object sender, RoutedEventArgs e)
+        private void BtnReschedule_Click(object sender, RoutedEventArgs e)
         {
-            if ((sender as Button).Tag is Appointments app)
+            if ((sender as Button).Tag is Appointments selectedApp)
             {
-                app.Status = "Отменена";
-                Core.DB.SaveChanges();
-                RefreshData();
+                // Переходим на страницу переноса, передавая выбранную запись
+                NavigationService.Navigate(new ReschedulePage(selectedApp));
             }
         }
 
-        private void BtnReschedule_Click(object sender, RoutedEventArgs e)
+        // Кнопка ОТМЕНИТЬ
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Функция переноса даты в разработке...");
+            if ((sender as Button).Tag is Appointments selectedApp)
+            {
+                var result = MessageBox.Show($"Вы уверены, что хотите отменить запись клиента {selectedApp.Users.FullName}?",
+                                             "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        selectedApp.Status = "Отменена";
+                        Core.DB.SaveChanges();
+
+                        // Обновляем данные в таблице, чтобы сразу увидеть "Отменена" красным
+                        DGridAppointments.ItemsSource = Core.DB.Appointments.ToList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Ошибка при отмене: " + ex.Message);
+                    }
+                }
+            }
         }
 
-        // --- ЗАКАЗЫ ---
+        // --- ЗАКАЗЫ (Выдача) ---
         private void BtnDeliverOrder_Click(object sender, RoutedEventArgs e)
         {
             if ((sender as Button).Tag is Orders order)
@@ -95,6 +105,67 @@ namespace PR17.Pages.Manager
                 order.Status = "Выдан";
                 Core.DB.SaveChanges();
                 RefreshData();
+            }
+        }
+
+        // --- ТИПЫ УСЛУГ (Исправленное добавление) ---
+        // Вкладка Типы услуг: Добавление нового типа
+        private void BtnAddServiceType_Click(object sender, RoutedEventArgs e)
+        {
+            // Генерируем временное уникальное имя, чтобы не сработал UNIQUE KEY
+            string newTypeName = "Новый тип " + DateTime.Now.ToString("HH:mm:ss");
+
+            // Проверяем на всякий случай в БД
+            if (Core.DB.ProductTypes.Any(pt => pt.Name == newTypeName)) return;
+
+            var newEntry = new ProductTypes { Name = newTypeName };
+            Core.DB.ProductTypes.Add(newEntry);
+
+            try
+            {
+                Core.DB.SaveChanges();
+                RefreshData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка: " + ex.Message);
+            }
+        }
+
+        // Сохранение при редактировании ячейки (Inline editing)
+        private void DGridServiceTypes_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                // Даем UI обновить объект перед сохранением в БД
+                Dispatcher.BeginInvoke(new Action(() => {
+                    try
+                    {
+                        Core.DB.SaveChanges();
+                    }
+                    catch (Exception)
+                    {
+                        MessageBox.Show("Такое название уже существует!");
+                        RefreshData(); // Откатываем визуально
+                    }
+                }), System.Windows.Threading.DispatcherPriority.Background);
+            }
+        }
+
+        private void BtnDeleteType_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button).Tag is ProductTypes type)
+            {
+                try
+                {
+                    Core.DB.ProductTypes.Remove(type);
+                    Core.DB.SaveChanges();
+                    RefreshData();
+                }
+                catch
+                {
+                    MessageBox.Show("Нельзя удалить тип, используемый в товарах!");
+                }
             }
         }
     }

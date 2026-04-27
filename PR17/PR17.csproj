@@ -79,6 +79,9 @@
     <Compile Include="Pages\Manager\EditProductPage.xaml.cs">
       <DependentUpon>EditProductPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\Manager\ReschedulePage.xaml.cs">
+      <DependentUpon>ReschedulePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\Master\MasterServicesPage.xaml.cs">
       <DependentUpon>MasterServicesPage.xaml</DependentUpon>
     </Compile>
@@ -181,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\Manager\EditProductPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\Manager\ReschedulePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

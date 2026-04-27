@@ -61,6 +61,27 @@ namespace PR17.Pages.Master
             TxtComment.Text = _currentAppointment.Comment ?? "Нет комментария";
         }
 
+        // Метод для завершения записи
+        private void BtnComplete_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // 1. Просто меняем статус текущей записи на "Выполнена"
+                _currentAppointment.Status = "Выполнена";
+
+                // 2. Сохраняем изменения в базе
+                Core.DB.SaveChanges();
+
+                MessageBox.Show("Запись успешно завершена!");
+
+                // 3. Возвращаемся назад к списку
+                NavigationService.GoBack();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при сохранении: " + ex.Message);
+            }
+        }
         private void BtnBack_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack(); 
