@@ -31,6 +31,10 @@ namespace PR17.Pages.Shop
             InitializeComponent();
             RefreshCart();
         }
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            RefreshCart(); 
+        }
         private void RefreshCart()
         {
             // Группируем одинаковые товары из общего списка

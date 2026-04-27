@@ -86,6 +86,7 @@ namespace PR17.Pages.Shop
             {
                 Core.SelectedProducts.Add(product);
                 MessageBox.Show($"Товар '{product.Name}' добавлен!");
+                NavigationService.Navigate(new CartPage());
             }
         }
         private void LBoxProducts_MouseDoubleClick(object sender, MouseButtonEventArgs e)
