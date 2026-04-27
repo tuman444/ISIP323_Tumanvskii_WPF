@@ -14,7 +14,7 @@
             <ColumnDefinition Width="350"/>
         </Grid.ColumnDefinitions>
 
-        <ListBox x:Name="LBoxCart" Grid.Column="0" Margin="10" Background="Transparent" BorderThickness="0">
+        <ListBox x:Name="LBoxCart" Grid.Column="0" Margin="10" Background="Transparent" BorderThickness="0" HorizontalContentAlignment="Stretch">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Border Background="#2C3E50" CornerRadius="8" Margin="0,0,0,10" Padding="10">
@@ -23,17 +23,24 @@
                                 <ColumnDefinition Width="80"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="1" Margin="15,0">
-                                <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="White"/>
-                                <TextBlock Text="{Binding Manufacturers.Name}" Foreground="White"/>
+                            <StackPanel Grid.Column="1" Margin="15,0" VerticalAlignment="Center">
+                                <TextBlock Text="{Binding Product.Name}" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                                <TextBlock Text="{Binding Product.Manufacturers.Name}" Foreground="White"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="2" VerticalAlignment="Center" Orientation="Horizontal">
-                                <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₽}" FontSize="16" VerticalAlignment="Center" Foreground="White"/>
-                                <Button Content="✕" Click="BtnRemove_Click" Tag="{Binding}" Margin="15,0,0,0" 
-                                        Background="Transparent" Foreground="Red" BorderThickness="0" FontWeight="Bold"/>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,20,0">
+                                <Button Content="-" Click="BtnMinus_Click" Tag="{Binding Product}" Width="30" Height="30" Background="#E74C3C" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
+                                <TextBlock Text="{Binding Quantity}" Width="30" TextAlignment="Center" VerticalAlignment="Center" FontSize="16" Foreground="White" FontWeight="Bold" Margin="5,0"/>
+                                <Button Content="+" Click="BtnPlus_Click" Tag="{Binding Product}" Width="30" Height="30" Background="#27AE60" Foreground="White" BorderThickness="0" FontWeight="Bold"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" VerticalAlignment="Center" Orientation="Horizontal">
+                                <TextBlock Text="{Binding TotalPrice, StringFormat={}{0:N0} ₽}" FontSize="16" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                                <Button Content="✕" Click="BtnRemove_Click" Tag="{Binding Product}" Margin="15,0,0,0" 
+                                        Background="Transparent" Foreground="#E74C3C" BorderThickness="0" FontWeight="Bold" FontSize="18"/>
                             </StackPanel>
                         </Grid>
                     </Border>

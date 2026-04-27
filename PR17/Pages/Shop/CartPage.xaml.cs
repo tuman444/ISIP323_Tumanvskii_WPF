@@ -20,6 +20,12 @@ namespace PR17.Pages.Shop
     /// </summary>
     public partial class CartPage : Page
     {
+        public class CartItemModel
+        {
+            public Products Product { get; set; }
+            public int Quantity { get; set; }
+            public decimal TotalPrice => Product.Price * Quantity;
+        }
         public CartPage()
         {
             InitializeComponent();
@@ -27,12 +33,19 @@ namespace PR17.Pages.Shop
         }
         private void RefreshCart()
         {
-            LBoxCart.ItemsSource = null;
-            LBoxCart.ItemsSource = Core.SelectedProducts;
+            // Группируем одинаковые товары из общего списка
+            var groupedCart = Core.SelectedProducts
+                .GroupBy(p => p.Id)
+                .Select(g => new CartItemModel
+                {
+                    Product = g.First(),
+                    Quantity = g.Count()
+                }).ToList();
+
+            LBoxCart.ItemsSource = groupedCart;
 
             // Расчеты
             decimal total = Core.SelectedProducts.Sum(p => p.Price);
-            // Считаем скидку на основе DiscountPercentage из твоей БД
             decimal discount = Core.SelectedProducts.Sum(p => p.Price * (p.DiscountPercentage / 100m));
 
             TxtTotalCount.Text = $"{Core.SelectedProducts.Count} шт.";
@@ -40,19 +53,47 @@ namespace PR17.Pages.Shop
             TxtFinalPrice.Text = $"{total - discount:N0} ₽";
         }
 
+        // Кнопка "+"
+        private void BtnPlus_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button).Tag is Products prod)
+            {
+                Core.SelectedProducts.Add(prod); // Добавляем еще один такой же товар
+                RefreshCart();
+            }
+        }
+
+        // Кнопка "-"
+        private void BtnMinus_Click(object sender, RoutedEventArgs e)
+        {
+            if ((sender as Button).Tag is Products prod)
+            {
+                var itemToRemove = Core.SelectedProducts.FirstOrDefault(p => p.Id == prod.Id);
+                if (itemToRemove != null)
+                {
+                    Core.SelectedProducts.Remove(itemToRemove);
+                }
+                RefreshCart();
+            }
+        }
+
+        // Полное удаление позиции
         private void BtnRemove_Click(object sender, RoutedEventArgs e)
         {
-            var product = (sender as Button).Tag as Products;
-            Core.SelectedProducts.Remove(product);
-            RefreshCart();
+            if ((sender as Button).Tag is Products prod)
+            {
+                // Удаляем все экземпляры этого товара из корзины
+                Core.SelectedProducts.RemoveAll(p => p.Id == prod.Id);
+                RefreshCart();
+            }
         }
+
         private void BtnOrder_Click(object sender, RoutedEventArgs e)
         {
             if (Core.SelectedProducts.Count == 0) return;
 
-            MessageBox.Show("Заказ успешно сформирован!");
-            Core.SelectedProducts.Clear();
-            NavigationService.GoBack();
+            // Переходим на страницу оформления заказа
+            NavigationService.Navigate(new OrderPage());
         }
     }
 }
